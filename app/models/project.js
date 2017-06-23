@@ -63,7 +63,12 @@ function get(projectAddress) {
   return contract;
 }
 
+function fund(projectAddress, amount) {
+    web3.eth.sendTransaction({from: web3.eth.accounts[0], to: projectAddress, value: web3.toWei(amount, 'ether')})
+};
+
 module.exports = {
   "create": create,
-  "get": get
+  "get": get,
+  "fund": fund
 }
