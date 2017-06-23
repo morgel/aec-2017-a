@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {MdButtonModule, MdCheckboxModule,MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -35,7 +36,8 @@ import { HomeComponent } from './home/home.component';
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdIconModule
+    MdIconModule,
+    NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
