@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <h1>User View</h1>
   <md-card>
-    <md-card-header>
-      <h3>Create Project</h3>
-    </md-card-header>
+    <h3>Create Project</h3>
     <md-card-content>
-      Test
+      <md-input-container>
+        <input mdInput placeholder="Goal">
+      </md-input-container>
     </md-card-content>
     <md-card-actions>
       <button md-button>Create</button>
@@ -13,11 +13,25 @@
   </md-card>
 
   <md-card>
-    <md-card-header>
+
       <h3>Invest in Project</h3>
-    </md-card-header>
+
     <md-card-content>
-      Test
+      <md-list>
+        <h3 md-subheader>Folders</h3>
+        <md-list-item *ngFor="let folder of folders">
+          <md-icon md-list-icon>folder</md-icon>
+          <h4 md-line>{{folder.name}}</h4>
+          <p md-line> {{folder.updated | date}} </p>
+        </md-list-item>
+        <md-divider></md-divider>
+        <h3 md-subheader>Notes</h3>
+        <md-list-item *ngFor="let note of notes">
+          <md-icon md-list-icon>note</md-icon>
+          <h4 md-line>{{note.name}}</h4>
+          <p md-line> {{note.updated | date}} </p>
+        </md-list-item>
+      </md-list>
     </md-card-content>
     <md-card-actions>
 
