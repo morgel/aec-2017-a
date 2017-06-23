@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import {MdButtonModule, MdCheckboxModule,MdToolbarModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule,MdToolbarModule, MdCardModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -31,7 +31,8 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     MdButtonModule,
     MdCheckboxModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
