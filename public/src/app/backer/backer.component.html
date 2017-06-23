@@ -1,5 +1,20 @@
 <div class="container-fluid">
-  <p>
-    backer works! asdsa
-  </p>
+  <h1>Backer View</h1>
+  <md-card>
+    <md-card-header>
+      <h3>My Backed Projects</h3>
+    </md-card-header>
+    <md-card-content>
+      This is a list with all the projects you have invested in:
+    </md-card-content>
+    <md-card-content>
+      <md-list>
+        <md-list-item *ngFor="let project of projects">
+          <h4 md-line>{{project.name}}</h4>
+          <p md-line> {{project.fundingStatus}} </p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+    </md-card-content>
+  </md-card>
 </div>
