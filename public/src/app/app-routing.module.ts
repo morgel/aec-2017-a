@@ -17,11 +17,11 @@ const routes: Routes = [
     },
     {
         path: 'project-owner',
-        component: BackerComponent
+        component: ProjectOwnerComponent
     },
     {
         path: 'backer',
-        component: ProjectOwnerComponent
+        component: BackerComponent
     }
 ];
 @NgModule({
