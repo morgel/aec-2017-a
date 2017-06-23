@@ -7,6 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
+  columns = [
+    { prop: 'name' },
+    { prop: 'fundingStatus' },
+    { prop: 'goal' }
+  ];
+
+
+  projects = [
+    {
+      name: "project1",
+      fundingStatus: 80,
+      goal: 10000
+    },
+    {
+      name: "project2",
+      fundingStatus: 80,
+      goal: 20000
+    },
+    {
+      name: "project3",
+      fundingStatus: 80,
+      goal: 30000
+    }
+  ]
+
   folders = [
     {
       name: 'Photos',
