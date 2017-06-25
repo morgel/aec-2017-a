@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <h1>User View</h1>
+  <md-card>
+    <h3>Create Project</h3>
+    <md-card-content>
+      <md-input-container>
+        <input mdInput placeholder="Name">
+      </md-input-container>
+      <md-input-container>
+        <input mdInput placeholder="Goal">
+      </md-input-container>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button>Create</button>
+    </md-card-actions>
+  </md-card>
+
+  <md-card>
+
+      <h3>Invest in Project</h3>
+
+    <md-card-content>
+      <ngx-datatable class="material"
+        [rows]="projects"
+        [columns]="columns">
+      </ngx-datatable>
+
+
+
+
+      <ngx-datatable
+        #myTable
+        class='material expandable'
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="50"
+        [scrollbarV]="50"
+        [rows]='rows'
+        (page)="onPage($event)">
+        <!-- Row Detail Template -->
+        <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+          <ng-template let-row="row" ngx-datatable-row-detail-template>
+            <div style="padding-left:35px;">
+              <div><strong>Address</strong></div>
+              <div>{{row.address.city}}, {{row.address.state}}</div>
+            </div>
+          </ng-template>
+        </ngx-datatable-row-detail>
+        <!-- Column Templates -->
+        <ngx-datatable-column
+          [width]="50"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <a
+              href="#"
+              [class.datatable-icon-right]="!row.$$expanded"
+              [class.datatable-icon-down]="row.$$expanded"
+              title="Expand/Collapse Row"
+              (click)="toggleExpandRow(row)">
+            </a>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Index" width="80">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <strong>{{row.$$index}}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Expanded" width="80">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <strong>{{row.$$expanded === 1}}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Name" width="200">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{value}}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Gender" width="300">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <i [innerHTML]="row['name']"></i> and <i>{{value}}</i>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Age" ></ngx-datatable-column>
+      </ngx-datatable>
+
+    </md-card-content>
+    <md-card-actions>
+
+    </md-card-actions>
+  </md-card>
+</div>
