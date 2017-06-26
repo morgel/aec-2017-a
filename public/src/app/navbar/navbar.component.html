@@ -1,15 +1,30 @@
 <md-toolbar color="primary">
-  <span routerLink="./" style="cursor:pointer">Blockstarter 4.0</span>
-  <span class="menu-spacer"></span>
-    <nav class="hidden-xs">
-      <button md-raised-button color="accent" routerLink="./user">
-        User
-      </button>
-      <button md-raised-button color="accent" routerLink="./project-owner">
-        Project Owner
-      </button>
-      <button md-raised-button color="accent" routerLink="./backer">
-        Backer
-      </button>
-    </nav>
+
+  <div class="toolbar-container">
+    <div class="toolbar-container-item">
+    </div>
+    <div class="toolbar-container-item">
+      <div class="title">
+        <span routerLink="./" style="cursor:pointer">berlinfund</span>
+      </div>
+    </div>
+    <div class="toolbar-container-item">
+
+      <nav>
+        <!--<button md-button color="accent" routerLink="./projects">-->
+          <!--Project Owner-->
+        <!--</button>-->
+        <!--<button md-button color="accent" routerLink="./investments">-->
+          <!--My Investments-->
+        <!--</button>-->
+        <button md-button routerLink="./login">
+          Login
+        </button>
+        <button md-raised-button color="accent" routerLink="">
+          Signup
+        </button>
+      </nav>
+    </div>
+
+  </div>
 </md-toolbar>
