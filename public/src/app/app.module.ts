@@ -16,6 +16,10 @@ import { ProjectsComponent } from './projects/projects.component';
 import { InvestmentsComponent } from './investments/investments.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {AuthService} from './services/auth.service';
+
+
+import {FlashMessagesModule } from 'angular2-flash-messages';
 
 
 @NgModule({
@@ -42,9 +46,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MdListModule,
     MdIconModule,
     NgxDatatableModule,
-    MdDialogModule
+    MdDialogModule,
+    FlashMessagesModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
