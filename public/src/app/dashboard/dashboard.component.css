@@ -1,0 +1,17 @@
+.img-container{
+  height: 40vh;
+  width: auto;
+  line-height: 30vh;
+  background-color: beige;
+}
+h1{
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+}
+.project-container{
+  height: 70vh;
+  width: auto;
+  line-height: 30vh;
+  background-color: aquamarine;
+}

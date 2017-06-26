@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent} from './login/login.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { InvestmentsComponent } from './investments/investments.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { InvestmentsComponent } from './investments/investments.component';
     HomeComponent,
     LoginComponent,
     ProjectsComponent,
-    InvestmentsComponent
+    InvestmentsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
