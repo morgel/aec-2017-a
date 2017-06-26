@@ -6,47 +6,28 @@ const BigNumber = require('bignumber.js');
 // link with local ethereum node
 web3.setProvider(new web3.providers.HttpProvider());
 
-const contractJson = [{
-  "constant": false,
-  "inputs": [],
-  "name": "kill",
-  "outputs": [],
-  "payable": false,
-  "type": "function"
-}, {
-  "constant": true,
-  "inputs": [],
-  "name": "isFunded",
-  "outputs": [{
-    "name": "",
-    "type": "bool"
-  }, {
-    "name": "",
-    "type": "uint256"
-  }],
-  "payable": false,
-  "type": "function"
-}, {
-  "inputs": [{
-    "name": "goal",
-    "type": "uint256"
-  }],
-  "payable": false,
-  "type": "constructor"
-}, {
-  "payable": true,
-  "type": "fallback"
-}];
+const contractJson = [
+  {"constant":false,"inputs":[{"name":"amountToWithdraw","type":"uint256"}],"name":"withdrawFunds","outputs":[],"payable":false,"type":"function"},
+  {"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},
+  {"constant":true,"inputs":[],"name":"isFunded","outputs":[{"name":"","type":"bool"},{"name":"","type":"uint256"}],"payable":false,"type":"function"},
+  {"constant":true,"inputs":[],"name":"myTokenShare","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},
+  {"inputs":[{"name":"goal","type":"uint256"},{"name":"_percentOfAllTokensDistributedToBackers","type":"uint256"}],"payable":false,"type":"constructor"},
+  {"payable":true,"type":"fallback"}];
+
+
+
 const untitled_sol_projectContract = web3.eth.contract(contractJson);
 
-function create(goal) {
+function create(goal, _percentOfAllTokensDistributedToBackers) {
   return new Promise((resolve, reject) => {
     untitled_sol_projectContract.new(
-      goal, {
-        from: web3.eth.accounts[0],
-        data: '0x6060604052341561000c57fe5b60405160208061040e833981016040528080519060200190919050505b33600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806002819055505b505b61038b806100836000396000f3006060604052361561004a576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b51461010d5780637c6543031461011f575b61010b5b6000805480600101828161006291906102de565b916000526020600020906002020160005b6040604051908101604052803373ffffffffffffffffffffffffffffffffffffffff16815260200134815250909190915060008201518160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060208201518160010155505050346003600082825401925050819055505b565b005b341561011557fe5b61011d610150565b005b341561012757fe5b61012f6102a8565b60405180831515151581526020018281526020019250505060405180910390f35b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141561026a57600090505b600080549050811015610269576000818154811015156101c957fe5b906000526020600020906002020160005b5060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc60008381548110151561022757fe5b906000526020600020906002020160005b50600101549081150290604051809050600060405180830381858888f19350505050505b80806001019150506101ad565b5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b50565b6000600060006002541115156102ba57fe5b600254600354101560646002546003548115156102d357fe5b0402915091505b9091565b81548183558181151161030b5760020281600202836000526020600020918201910161030a9190610310565b5b505050565b61035c91905b808211156103585760006000820160006101000a81549073ffffffffffffffffffffffffffffffffffffffff0219169055600182016000905550600201610316565b5090565b905600a165627a7a723058200ea06e9a76ecab939d8b6a1309c594da0047d77767c0f012c3d50d3a2de5ac0f0029',
+      goal,
+      _percentOfAllTokensDistributedToBackers,
+       {
+        from: web3.eth.accounts[0], 
+        data: '0x6060604052341561000c57fe5b604051604080610567833981016040528080519060200190919080519060200190919050505b33600360006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600481905550806007819055505b50505b6104d3806100946000396000f30060606040523615610060576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063155dd5ee1461012b57806341c0e1b51461014b5780637c6543031461015d5780638aa785431461018e575b6101295b3360016000600254815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600160026000828254019250508190555034600060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282540192505081905550346005600082825401925050819055505b565b005b341561013357fe5b61014960048080359060200190919050506101b4565b005b341561015357fe5b61015b61029c565b005b341561016557fe5b61016d610408565b60405180831515151581526020018281526020019250505060405180910390f35b341561019657fe5b61019e61043e565b6040518082815260200191505060405180910390f35b60006000600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141561029657610216610408565b9150915081801561022d5750600654600554038311155b1561029557600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc849081150290604051809050600060405180830381858888f19350505050151561029457fe5b5b5b5b505050565b60006000600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141561040357600091505b6002548210156103c8576001600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff166108fc600060008473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549081150290604051809050600060405180830381858888f1935050505015156103ba57fe5b5b81806001019250506102fb565b600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b5050565b60006000600060045411151561041a57fe5b6004546005541015606460045460055481151561043357fe5b0402915091505b9091565b60006000600060009150600060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490506007546005548281151561049a57fe5b040291508192505b5050905600a165627a7a7230582065d11009d51c2e8265c5e3d920a2730b2ae3fc737a8659593f1d945b4b42b9770029', 
         gas: '4700000'
-      },
+        },
       function(e, contract) {
         //console.log(e, contract);
         if (typeof contract.address !== 'undefined') {
@@ -60,21 +41,23 @@ function create(goal) {
 
 function get(projectAddress) {
   let contract = web3.eth.contract(contractJson).at(projectAddress);
+    console.log("Balance Project  after :"+web3.eth.getBalance(projectAddress))
   return contract;
 }
+
+
 
 function fund(projectAddress, amount) {
     console.log("Amount: "+amount);
 
     console.log("Estimated: "+web3.eth.estimateGas({from: web3.eth.accounts[0], to: projectAddress, value: amount}));
-    console.log("Gasprice: "+web3.eth.gasPrice);
     console.log("Balance Account0 before:"+web3.eth.getBalance(web3.eth.accounts[0]))
     console.log("Balance Project  before:"+web3.eth.getBalance(projectAddress))
     
-    web3.eth.sendTransaction({from: web3.eth.accounts[0],
+    web3.eth.sendTransaction({from: web3.eth.accounts[1],
         to: projectAddress,
         value: amount,
-        gas:web3.eth.estimateGas({from: web3.eth.accounts[0], to: projectAddress, value: amount})});
+        gas:web3.eth.estimateGas({from: web3.eth.accounts[1], to: projectAddress, value: amount})});
     console.log("Balance Account0 after :"+web3.eth.getBalance(web3.eth.accounts[0]))
     console.log("Balance Project  after :"+web3.eth.getBalance(projectAddress))
 };
