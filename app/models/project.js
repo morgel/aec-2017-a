@@ -64,7 +64,19 @@ function get(projectAddress) {
 }
 
 function fund(projectAddress, amount) {
-    web3.eth.sendTransaction({from: web3.eth.accounts[0], to: projectAddress, value: web3.toWei(amount, 'ether')})
+    console.log("Amount: "+amount);
+
+    console.log("Estimated: "+web3.eth.estimateGas({from: web3.eth.accounts[0], to: projectAddress, value: amount}));
+    console.log("Gasprice: "+web3.eth.gasPrice);
+    console.log("Balance Account0 before:"+web3.eth.getBalance(web3.eth.accounts[0]))
+    console.log("Balance Project  before:"+web3.eth.getBalance(projectAddress))
+    
+    web3.eth.sendTransaction({from: web3.eth.accounts[0],
+        to: projectAddress,
+        value: amount,
+        gas:web3.eth.estimateGas({from: web3.eth.accounts[0], to: projectAddress, value: amount})});
+    console.log("Balance Account0 after :"+web3.eth.getBalance(web3.eth.accounts[0]))
+    console.log("Balance Project  after :"+web3.eth.getBalance(projectAddress))
 };
 
 module.exports = {

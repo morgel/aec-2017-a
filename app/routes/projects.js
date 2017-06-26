@@ -29,5 +29,15 @@ router.post('/fund', (req, res, next) => {
         });
 });
 
+router.post('/fundingstatus', (req, res, next) => {
+    let result = Project.get(req.body.projectAddress);
+        console.log(`Current funding status: ${result.isFunded()[1].toNumber()}`);
+        res.json({
+            success: true,
+            contractAddress: req.body.projectAddress,
+            currentFundingStatus: result.isFunded()[1].toNumber()
+        });
+});
+
 
 module.exports = router;
