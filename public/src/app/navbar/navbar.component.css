@@ -27,12 +27,30 @@ md-toolbar {
   width: 33%;
 }
 
-.title {
+.title-middle {
   text-align: center;
   font-size: x-large;
   height: 100%;
   display:table;
   width: 100%;
+}
+
+.title-left {
+  padding-left: 20px;
+  font-size: x-large;
+  height: 100%;
+  display:table;
+  width: 100%;
+}
+
+.title-left span {
+  display:table-cell;
+  vertical-align:middle;
+}
+
+.title-middle span {
+  display:table-cell;
+  vertical-align:middle;
 }
 
 .title span {

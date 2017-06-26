@@ -3,7 +3,8 @@
   </md-toolbar>
   <div class="main-container">
     <div class="background-image"></div>
-    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 login-area">
+    <div
+      class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 login-area">
       <md-card>
         <form (submit)="onLoginSubmit()">
           <div class="card-header">
@@ -11,32 +12,33 @@
               <span>Login to your account</span>
             </div>
           </div>
-            <div class="form-element">
-              <md-input-container class="full-width">
-                <input mdInput type="text" placeholder="Username" [(ngModel)]="username" name="username">
-              </md-input-container>
-            </div>
-            <div class="form-element">
-              <md-input-container class="full-width">
-                <input mdInput type="password" placeholder="Password" [(ngModel)]="password" name="password">
-              </md-input-container>
-            </div>
-            <div class="form-element">
-              <md-checkbox>Remember me</md-checkbox>
-            </div>
+          <flash-messages></flash-messages>
+          <div class="form-element">
+            <md-input-container class="full-width">
+              <input mdInput type="text" placeholder="Username" [(ngModel)]="username" name="username">
+            </md-input-container>
+          </div>
+          <div class="form-element">
+            <md-input-container class="full-width">
+              <input mdInput type="password" placeholder="Password" [(ngModel)]="password" name="password">
+            </md-input-container>
+          </div>
+          <div class="form-element">
+            <md-checkbox>Remember me</md-checkbox>
+          </div>
           <div class="form-element">
             <button class="login-button" md-raised-button color="accent" type="submit">Login</button>
           </div>
-            <div class="form-element">
-              <div class="links-wrapper">
-                <div class="password-forgot">
-                  <a>Forgot password?</a>
-                </div>
-                <div class="signup-here">
-                  <a>Sign up here</a>
-                </div>
+          <div class="form-element">
+            <div class="links-wrapper">
+              <div class="password-forgot">
+                <a>Forgot password?</a>
+              </div>
+              <div class="signup-here">
+                <a>Sign up here</a>
               </div>
             </div>
+          </div>
         </form>
       </md-card>
     </div>

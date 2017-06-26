@@ -2,26 +2,35 @@
 
   <div class="toolbar-container">
     <div class="toolbar-container-item">
+      <div class="title-left" *ngIf="authService.loggedIn()">
+        <span routerLink="./" style="cursor:pointer">berlinfund</span>
+      </div>
     </div>
     <div class="toolbar-container-item">
-      <div class="title">
+      <div class="title-middle" *ngIf="!authService.loggedIn()">
         <span routerLink="./" style="cursor:pointer">berlinfund</span>
       </div>
     </div>
     <div class="toolbar-container-item">
 
       <nav>
-        <!--<button md-button color="accent" routerLink="./projects">-->
-          <!--Project Owner-->
-        <!--</button>-->
-        <!--<button md-button color="accent" routerLink="./investments">-->
-          <!--My Investments-->
-        <!--</button>-->
-        <button md-button routerLink="./login">
+        <button *ngIf="authService.loggedIn()"  md-button  routerLink="./dashboard">
+          Dashboard
+        </button>
+        <button *ngIf="authService.loggedIn()" md-button  routerLink="./projects">
+          Start Project
+        </button>
+        <button *ngIf="authService.loggedIn()" md-button  routerLink="./investments">
+          Make Investment
+        </button>
+        <button *ngIf="!authService.loggedIn()" md-button routerLink="./login">
           Login
         </button>
-        <button md-raised-button color="accent" routerLink="">
+        <button *ngIf="!authService.loggedIn()" md-raised-button color="accent" routerLink="">
           Signup
+        </button>
+        <button *ngIf="authService.loggedIn()" md-button (click)="onLogoutClick()" href="#">
+          Logout
         </button>
       </nav>
     </div>

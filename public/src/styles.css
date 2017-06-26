@@ -1,17 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-
 /*@import '~@angular/material/prebuilt-themes/indigo-pink.css';*/
-
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
 body {
-    margin: 0;
+  margin: 0;
 }
 
 .container-fluid {
-    height: calc(100vh - 64px);
-    background-color: #EEEEEE;
+  height: calc(100vh - 64px);
+  background-color: #EEEEEE;
+  padding: 0;
 }
 
 md-toolbar {
@@ -25,31 +25,34 @@ md-toolbar {
 
 @keyframes fadein {
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-moz-keyframes fadein { /* Firefox */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-webkit-keyframes fadein { /* Safari and Chrome */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-o-keyframes fadein { /* Opera */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -60,6 +63,10 @@ md-toolbar {
   width: 100%;
 }
 
-    .mat-toolbar-row {
-            height: 64px !important;
-          }
+.mat-toolbar-row {
+  height: 64px !important;
+}
+
+.pull-right {
+  float: right;
+}

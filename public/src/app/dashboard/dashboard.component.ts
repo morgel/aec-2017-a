@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import  {ProjectsService} from '../services/projects.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  ownProjects: any;
 
-  constructor() { }
+  constructor(
+    private projectsService: ProjectsService) {
+  }
+
+  getOwnProjects() {
+    this.ownProjects = this.projectsService.getOwnProjects();
+  }
 
   ngOnInit() {
+    this.getOwnProjects();
   }
 
 }

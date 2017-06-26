@@ -12,6 +12,7 @@
 }
 
 .home-mission {
+  text-align: center;
   font-size: 60px;
   margin-bottom: 10px;
   -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */

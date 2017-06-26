@@ -8,6 +8,7 @@ import {MdButtonModule, MdCheckboxModule,MdToolbarModule, MdCardModule, MdInputM
 import {MdDialogModule} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +18,7 @@ import { InvestmentsComponent } from './investments/investments.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AuthService} from './services/auth.service';
+import {ProjectsService} from './services/projects.service';
 
 
 import {FlashMessagesModule } from 'angular2-flash-messages';
@@ -49,7 +51,9 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
     MdDialogModule,
     FlashMessagesModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    ProjectsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
