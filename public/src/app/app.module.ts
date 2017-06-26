@@ -14,7 +14,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent} from './login/login.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { InvestmentsComponent } from './investments/investments.component';
+<<<<<<< HEAD
 import { DashboardComponent } from './dashboard/dashboard.component';
+=======
+>>>>>>> frontend
 
 
 @NgModule({
@@ -24,8 +27,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HomeComponent,
     LoginComponent,
     ProjectsComponent,
+<<<<<<< HEAD
     InvestmentsComponent,
     DashboardComponent
+=======
+    InvestmentsComponent
+>>>>>>> frontend
   ],
   imports: [
     BrowserModule,
