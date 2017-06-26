@@ -3,5 +3,45 @@
 }
 
 button {
-   margin: 0px 10px; 
+   margin: 0px 10px;
 }
+
+md-toolbar {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  border-top: 0;
+}
+
+.toolbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.toolbar-container-item {
+  flex-grow: 1;
+  width: 33%;
+}
+
+.title {
+  text-align: center;
+  font-size: x-large;
+  height: 100%;
+  display:table;
+  width: 100%;
+}
+
+.title span {
+  display:table-cell;
+  vertical-align:middle;
+}
+
+nav {
+  float: right;
+}
+
+

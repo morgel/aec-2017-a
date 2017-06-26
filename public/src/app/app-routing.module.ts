@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
-import { BackerComponent } from './backer/backer.component';
-import { ProjectOwnerComponent } from './project-owner/project-owner.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { InvestmentsComponent } from './investments/investments.component';
 
 const routes: Routes = [
     {
@@ -12,16 +11,16 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'user',
-        component: UserComponent
+        path: 'login',
+        component: LoginComponent
     },
     {
-        path: 'project-owner',
-        component: ProjectOwnerComponent
+        path: 'projects',
+        component: ProjectsComponent
     },
     {
-        path: 'backer',
-        component: BackerComponent
+        path: 'investments',
+        component: InvestmentsComponent
     }
 ];
 @NgModule({
