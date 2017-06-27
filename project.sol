@@ -39,10 +39,15 @@ contract Project{
   }
 
   function() payable public{
-    indicesAddresses[numberOfBackers] = msg.sender;
-    numberOfBackers += 1;
-    backers[msg.sender] += msg.value;
-    paid_in += msg.value;
+    if(backers[msg.sender] != 0){
+      backers[msg.sender] += msg.value;
+      paid_in += msg.value;
+    } else {
+      indicesAddresses[numberOfBackers] = msg.sender;
+      numberOfBackers += 1;
+      backers[msg.sender] += msg.value;
+      paid_in += msg.value;
+    }
   }
 
   function myTokenShare() constant returns(uint){
