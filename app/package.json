@@ -1,0 +1,24 @@
+{
+  "name": "blockstarter",
+  "version": "1.0.0",
+  "description": "Node.js app + MongoDB on Docker",
+  "author": "von Bleichert, Janis 375779; Geldenhuys, Morgan K. 370460; Kalkan, Jan 369149; Meyer, Dennis 378449",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "prod": "node src/app.js",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.10.2",
+    "pg": "^6.1.5",
+    "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
