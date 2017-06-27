@@ -3,7 +3,7 @@
   <div class="toolbar-container">
     <div class="toolbar-container-item">
       <div class="title-left" *ngIf="authService.loggedIn()">
-        <span routerLink="./" style="cursor:pointer">berlinfund</span>
+        <span routerLink="./dashboard" style="cursor:pointer">berlinfund</span>
       </div>
     </div>
     <div class="toolbar-container-item">
@@ -14,24 +14,63 @@
     <div class="toolbar-container-item">
 
       <nav>
-        <button *ngIf="authService.loggedIn()"  md-button  routerLink="./dashboard">
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./dashboard">
           Dashboard
         </button>
-        <button *ngIf="authService.loggedIn()" md-button  routerLink="./projects">
-          Start Project
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./projects">
+          Create Project
         </button>
-        <button *ngIf="authService.loggedIn()" md-button  routerLink="./investments">
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./investments">
           Make Investment
         </button>
-        <button *ngIf="!authService.loggedIn()" md-button routerLink="./login">
+        <button class="hidden-xs hidden-sm" *ngIf="!authService.loggedIn()" md-button routerLink="./login">
           Login
         </button>
-        <button *ngIf="!authService.loggedIn()" md-raised-button color="accent" routerLink="">
+        <button class="hidden-xs hidden-sm" *ngIf="!authService.loggedIn()" md-raised-button color="accent">
           Signup
         </button>
-        <button *ngIf="authService.loggedIn()" md-button (click)="onLogoutClick()" href="#">
-          Logout
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
         </button>
+        <md-menu #menu="mdMenu">
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./dashboard">
+            <span>
+              Dashboard
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./projects">
+            <span>
+              Create Project
+            </span>
+
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./investments">
+            <span>
+              Make Investment
+            </span>
+
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item routerLink="./login">
+            <span>
+              Login
+            </span>
+
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item>
+            <span>
+              Signup
+            </span>
+          </button>
+          <button *ngIf="authService.loggedIn()" md-menu-item (click)="onLogoutClick()">
+            <span>Logout</span>
+          </button>
+          <button md-menu-item>
+            <span>Help</span>
+          </button>
+        </md-menu>
       </nav>
     </div>
 

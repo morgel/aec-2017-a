@@ -1,12 +1,12 @@
 <div class="container-fluid view-container">
   <md-toolbar>
   </md-toolbar>
-  <div class="img-container vertical-middle-align">
-    <h1 class="text-center" style="line-height: 40vh">Welcome!</h1>
+  <div class="img-container dashboard-container vertical-middle-align">
   </div>
   <div class="content-container">
     <div class="row projects-container">
-      <h2>My Projects</h2>
+      <h1>Dashboard</h1>
+      <h3>My own projects ({{ownProjects.length}})</h3>
       <div *ngFor="let project of ownProjects" class="col-xs-12 col-sm-4 col-md-3 col-lg-3 project-card">
         <md-card>
           <md-card-header>
@@ -14,19 +14,52 @@
           </md-card-header>
           <img md-card-image src="../../assets/startup.jpg">
           <md-card-content>
+            <h5>Description:</h5>
             <p class="project-description-text">
               {{project.description}}
             </p>
+            <h5>Funding Status: {{project.fundingStatus}}%</h5>
+            <md-progress-bar
+              class="funding-status-bar"
+              [color]="'accent'"
+              [mode]="'determinate'"
+              [value]="project.fundingStatus">
+            </md-progress-bar>
           </md-card-content>
           <md-card-actions>
             <button md-button>Details</button>
-            <button md-button class="pull-right">Cancel</button>
+            <button md-raised-button color="primary" class="pull-right" (click)="openCancelProjectDialog(project)">Cancel Project</button>
           </md-card-actions>
         </md-card>
       </div>
     </div>
     <div class="row investments-container">
-      <h2>My Investments</h2>
+      <h3>Funded projects ({{fundedProjects.length}})</h3>
+      <div *ngFor="let project of fundedProjects" class="col-xs-12 col-sm-4 col-md-3 col-lg-3 project-card">
+        <md-card>
+          <md-card-header>
+            <md-card-title>{{project.name}}</md-card-title>
+          </md-card-header>
+          <img md-card-image src="../../assets/startup.jpg">
+          <md-card-content>
+            <h5>Description:</h5>
+            <p class="project-description-text">
+              {{project.description}}
+            </p>
+            <h5>Funding Status: {{project.fundingStatus}}%</h5>
+            <md-progress-bar
+              class="funding-status-bar"
+              [color]="'accent'"
+              [mode]="'determinate'"
+              [value]="project.fundingStatus">
+            </md-progress-bar>
+          </md-card-content>
+          <md-card-actions>
+            <button md-button>Details</button>
+            <button md-raised-button color="primary" class="pull-right" (click)="openWithdrawFundingDialog(project)">Withdraw</button>
+          </md-card-actions>
+        </md-card>
+      </div>
     </div>
 
   </div>

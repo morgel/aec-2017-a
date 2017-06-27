@@ -70,3 +70,44 @@ md-toolbar {
 .pull-right {
   float: right;
 }
+
+.img-container{
+  width: auto;
+  padding: 0;
+}
+
+.content-container{
+  width: 100%;
+  background-color: #E4F6F8;
+  height: auto;
+}
+
+.content-container h3 {
+  text-align: center;
+}
+
+.content-container h1 {
+  text-align: center;
+  margin:20px 0px 40px 0px;
+  font-weight: bold;
+}
+
+.project-card {
+  padding: 10px 10px 10px 0px;
+}
+
+
+
+.project-description-text {
+  min-height: 100px;
+  max-height: 100px;
+  text-overflow: ellipsis;
+}
+
+.projects-container {
+  width: 100%;
+  padding: 20px;
+  margin: 0;
+  border-bottom: 1px solid lightgrey;
+}
+

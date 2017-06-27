@@ -1,3 +1,27 @@
-<p>
-  projects works!
-</p>
+<div class="container-fluid view-container">
+  <md-toolbar>
+  </md-toolbar>
+  <div class="img-container start-projects-container vertical-middle-align">
+  </div>
+  <div class="content-container">
+    <div class="row create-projects-container">
+      <h1>Create a project</h1>
+      <md-card>
+        <h4>Project name</h4>
+        <md-input-container class="full-width">
+          <input mdInput type="text" placeholder="Name" [(ngModel)]="name" name="name">
+        </md-input-container>
+        <h4>Project description</h4>
+        <md-input-container class="full-width">
+          <input mdInput type="text" placeholder="Description" [(ngModel)]="description" name="description">
+        </md-input-container>
+        <h4>Funding goal</h4>
+        <md-input-container class="full-width">
+          <input mdInput type="text" placeholder="Goal" [(ngModel)]="goal" name="goal">
+        </md-input-container>
+        <button md-raised-button color="primary" (click)="createProject()">Create Project</button>
+      </md-card>
+    </div>
+  </div>
+</div>
+

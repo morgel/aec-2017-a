@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {MdButtonModule, MdCheckboxModule,MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
-import {MdDialogModule} from '@angular/material';
+import {MdDialogModule, MdMenuModule, MdSelectModule,MdProgressBarModule} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
@@ -14,9 +14,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent} from './login/login.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { InvestmentsComponent } from './investments/investments.component';
+import { InvestmentsComponent, InvestmentsDialog } from './investments/investments.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent, CancelProjectDialog, WithdrawFundingDialog } from './dashboard/dashboard.component';
 import {AuthService} from './services/auth.service';
 import {ProjectsService} from './services/projects.service';
 
@@ -32,7 +32,10 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
     LoginComponent,
     ProjectsComponent,
     InvestmentsComponent,
-    DashboardComponent
+    DashboardComponent,
+    InvestmentsDialog,
+    CancelProjectDialog,
+    WithdrawFundingDialog
   ],
   imports: [
     BrowserModule,
@@ -49,11 +52,19 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
     MdIconModule,
     NgxDatatableModule,
     MdDialogModule,
-    FlashMessagesModule
+    FlashMessagesModule,
+    MdMenuModule,
+    MdSelectModule,
+    MdProgressBarModule
   ],
   providers: [
     AuthService,
     ProjectsService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InvestmentsDialog,
+    CancelProjectDialog,
+    WithdrawFundingDialog
+]
 })
 export class AppModule { }
