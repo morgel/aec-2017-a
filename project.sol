@@ -12,10 +12,9 @@ contract Project{
   mapping(address => uint) backers;
   mapping(uint => address) indicesAddresses;
   uint numberOfBackers;
-
   address owner;
   uint funding_goal;
-  uint paid_in = 70;
+  uint paid_in = 0;
   uint totalWithdrawnAmount;
 
   //ufixed0x8 percentOfAllTokensDistributedToBackers;
@@ -53,26 +52,26 @@ contract Project{
       // which amount determines share of Tokens?
       //funding_goal (i.e. backers receive tokens only until this goal is reached)
       // or paid_in (i.e. every backer receives tokens but shares are diluted)
-      tokenShareInPercent = paidInAmount / paid_in * percentOfAllTokensDistributedToBackers;
+      tokenShareInPercent = paidInAmount * percentOfAllTokensDistributedToBackers / paid_in ;
       return tokenShareInPercent;
   }
 
   // returns boolean value funded and percentage of funding
   function isFunded() constant public returns(bool){
-    assert(funding_goal>0);
+   // assert(funding_goal>0);
     return paid_in>=funding_goal;
   }
 
   function getFundingStatus() constant public returns(uint){
       assert(funding_goal>0);
-      return paid_in/funding_goal*100;
+      return 100*paid_in/funding_goal;
   }
 
   function withdrawFunds(uint amountToWithdraw) returns(bool){
       if (msg.sender == owner) {
           var alreadyFunded = isFunded();
           if(alreadyFunded){
-              if(amountToWithdraw <= (paid_in-totalWithdrawnAmount)){
+              if(amountToWithdraw <= (this.balance)){
                   owner.send(amountToWithdraw);
                   totalWithdrawnAmount+=amountToWithdraw;
                   return true;
@@ -97,6 +96,11 @@ contract Project{
   function getNumberOfBackers() constant public returns(uint){
       return numberOfBackers;
   }
+  
+  function getMyPaidInAmount()constant public returns(uint){
+      return backers[msg.sender];
+  }
+  
   function getFundingGoal() constant public returns(uint){
       return funding_goal;
   }
@@ -106,11 +110,14 @@ contract Project{
   function getTotalWithdrawnAmount() constant public returns(uint){
       return totalWithdrawnAmount;
   }
-  function getPercentOfAllTokensDistributedToBackers() returns(uint){
+  function getPercentOfAllTokensDistributedToBackers() constant public returns(uint){
       return percentOfAllTokensDistributedToBackers;
   }
   function getOwnerAddress() constant public returns(address){
   // keep this function?
     return owner;
+  }
+  function getCurrentBalance() constant public returns(uint){
+    return this.balance;
   }
 }
