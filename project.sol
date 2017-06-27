@@ -91,7 +91,7 @@ contract Project{
     //redistribute funds
         for(uint i = 0; i < numberOfBackers; i++){
             address backer = indicesAddresses[i];
-            backer.transfer(backers[backer]);
+            backer.send(backers[backer]);
         }
     selfdestruct(owner); //should return 0 value
     }
