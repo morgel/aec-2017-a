@@ -51,6 +51,7 @@ app.post('/users', usertCrl.create);
 app.put('/users', usertCrl.update);
 app.delete('/users', usertCrl.delete);
 
+app.post('/users/:id/invest', usertCrl.invest);
 
 global.db.once('open', function () {
     app.listen(LOCAL_APP_PORT, function () {

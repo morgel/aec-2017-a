@@ -1,6 +1,6 @@
 const DAO = require('../dao/mongo');
-var user = require('../models/user');
-var dao = new DAO(user);
+var User = require('../models/user');
+var dao = new DAO(User);
 
 module.exports = {
     // Backer: Backer,
@@ -69,5 +69,34 @@ module.exports = {
                 res.status(500);
                 res.send(error.message);
             });
+    },
+    invest: function(req, res) {
+      User.findOne({_id: req.params.id }).then(function(user) {
+
+      user.investments.push({
+        project_id: req.body.project_id,
+        project_name: req.body.project_name,
+        amount: req.body.funding_amount
+      });
+
+      return user.save();
+    }).then(function() {
+      var Project = require('../models/project');
+      Project.findOne({_id: req.body.project_id }).then(function(project) {
+        project.backer_count++;
+
+        console.log("Funding Status:"+project.funding_status);
+        console.log("Funding Amount:"+req.body.funding_amount);
+        project.funding_status += req.body.funding_amount;
+        return project.save();
+      });
+    }).then(function() {
+      res.status(200);
+      res.send("investment successful");
+    })
+    .catch(function (error) {
+        res.status(500);
+        res.send(error.message);
+    });
     }
 };
