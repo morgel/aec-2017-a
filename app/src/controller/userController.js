@@ -81,12 +81,13 @@ module.exports = {
 
       return user.save();
     }).then(function() {
-      var Project = require('../models/project');
-      Project.findOne({_id: req.body.project_id }).then(function(project) {
-        project.backer_count++;
+        var Project = require('../models/project');
+        Project.findOne({_id: req.body.project_id }).then(function(project) {
+        //console.log("backer_count:"+project.backer_count);
+        project.backer_count += 1;
 
-        console.log("Funding Status:"+project.funding_status);
-        console.log("Funding Amount:"+req.body.funding_amount);
+        //console.log("Funding Status:"+project.funding_status);
+        //console.log("Funding Amount:"+req.body.funding_amount);
         project.funding_status += req.body.funding_amount;
         return project.save();
       });
