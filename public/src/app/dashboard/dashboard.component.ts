@@ -9,8 +9,11 @@ import {MdDialog} from '@angular/material';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  getData: String;
   ownProjects: any;
   fundedProjects: any;
+  ownProjectsLoaded = false;
+  investedProjectsLoaded = false;
 
   constructor(
     private projectsService: ProjectsService,
@@ -18,24 +21,37 @@ export class DashboardComponent implements OnInit {
   }
 
   openCancelProjectDialog(project) {
-    let cancelDialog = this.dialog.open(CancelProjectDialog, {"data": project});
+    const cancelDialog = this.dialog.open(CancelProjectDialog, {'data': project});
     cancelDialog.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.projectsService.cancelProject(project);
+        this.getOwnProjects();
       }
     });
   }
 
   openWithdrawFundingDialog(project) {
-    this.dialog.open(WithdrawFundingDialog, {"data": project});
+    this.dialog.open(WithdrawFundingDialog, {'data': project});
   }
 
   getOwnProjects() {
-    this.ownProjects = this.projectsService.getOwnProjects();
+    this.projectsService.getOwnProjects()
+      .subscribe(
+        data => {
+          this.ownProjects = data;
+          this.ownProjectsLoaded = true;
+        }
+      );
   }
 
   getFundedProjects() {
-    this.fundedProjects = this.projectsService.getFundedProjects();
+    this.projectsService.getFundedProjects()
+      .subscribe(
+        data => {
+          this.fundedProjects = data;
+          this.investedProjectsLoaded = true;
+        }
+      );
   }
 
   ngOnInit() {

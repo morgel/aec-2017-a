@@ -10,6 +10,7 @@ export class ProjectsComponent implements OnInit {
   name: String;
   description: String;
   goal: number;
+  isCreated = false;
 
   constructor(private projectsService: ProjectsService) { }
 
@@ -17,11 +18,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   createProject() {
-    let data = {
-      "name": this.name,
-      "description": this.description,
-      "goal": this.goal
+    const data = {
+      'name': this.name,
+      'description': this.description,
+      'fundingGoal': this.goal
     }
-    this.projectsService.createProject(data);
+    this.projectsService.createProject(data)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.isCreated = true;
+        }
+      );
   }
 }

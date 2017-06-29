@@ -10,28 +10,35 @@ import {MdDialog} from '@angular/material';
 })
 export class InvestmentsComponent implements OnInit {
   allProjects: any;
-
-  filters = [
-    {value: '0', name: 'All'},
-    {value: '1', name: 'Own'},
-    {value: '2', name: 'Funded'}
-  ];
+  allProjectsLoaded = false;
 
   constructor(private projectsService: ProjectsService,
               public dialog: MdDialog) {
   }
 
-  getOwnProjects() {
-    this.allProjects = this.projectsService.getAllProjects();
+  getAllProjects() {
+    this.allProjects = this.projectsService.getAllProjects()
+      .subscribe(
+        data => {
+          this.allProjects = data;
+          this.allProjectsLoaded = true;
+        }
+      );
   }
 
   openDialog(project) {
     console.log(project);
-    this.dialog.open(InvestmentsDialog, {"data": project});
+    const investDialog = this.dialog.open(InvestmentsDialog, {'data': project});
+    investDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllProjects();
+        console.log(this.allProjects);
+      }
+    });
   }
 
   ngOnInit() {
-    this.getOwnProjects();
+    this.getAllProjects();
   }
 
 }
@@ -39,18 +46,19 @@ export class InvestmentsComponent implements OnInit {
   templateUrl: 'investmentDialog.html'
 })
 export class InvestmentsDialog {
-  amount:number;
-  project:any;
+  amount: number;
+  project: any;
 
-  constructor(
-    @Inject(MD_DIALOG_DATA) public data: any,
-    private projectsService: ProjectsService
-  ) {
+  constructor(@Inject(MD_DIALOG_DATA) public data: any,
+              private projectsService: ProjectsService) {
     this.project = data;
   }
 
   makeInvestment() {
     console.log(this.amount, this.project.name);
-    this.projectsService.makeInvestment(this.project, this.amount);
+    this.projectsService.makeInvestment(this.project, this.amount)
+      .subscribe(
+        data => console.log(data)
+      );
   }
 }

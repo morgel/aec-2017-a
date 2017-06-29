@@ -3,7 +3,7 @@
   </md-toolbar>
   <div class="img-container make-investment-container vertical-middle-align">
   </div>
-  <div class="content-container">
+  <div class="content-container" *ngIf="allProjectsLoaded">
     <div class="row projects-container">
       <h1>Make Investment</h1>
       <h3>Available projects</h3>
@@ -18,12 +18,12 @@
             <p class="project-description-text">
               {{project.description}}
             </p>
-            <h5>Funding Status: {{project.fundingStatus}}%</h5>
+            <h5>Funding Status: {{(project.fundingStatus/project.fundingGoal*100).toFixed(2)}}%</h5>
             <md-progress-bar
               class="funding-status-bar"
               [color]="'accent'"
               [mode]="'determinate'"
-              [value]="project.fundingStatus">
+              [value]="(project.fundingStatus/project.fundingGoal*100).toFixed(2)">
             </md-progress-bar>
           </md-card-content>
           <md-card-actions>
