@@ -16,6 +16,7 @@ Project-Endpoints:
 * GET /projects (List all projects)
 * POST /projects (Create a new project - must be logged-in)
 * POST /projects/:id/invest (Invest in a project - must be logged-in)
+* DELETE /projects/:id (kills a project)
 
 ### public
 
