@@ -2,7 +2,7 @@
 
 ## Structure of the repo
 
-### Backend
+### backend
 
 User-Endpoints:
 
@@ -25,14 +25,14 @@ Angular frontend app.
 
 ### Step 1: Start Application
 
-Run `docker-compose up`.
+Run `docker-compose up`
 
 The frontend is available at `http://localhost:4200/`, the backend at `http://localhost:3000/`
 
-On startup, two user get created
-User 1: creator
-User 2: backer
-Password: blockstarter4
+On startup, two user get created:
+* User 1: creator
+* User 2: backer
+* Password: blockstarter4
 
 ### Step 2: Login with given credentials
 
