@@ -19,7 +19,6 @@ const ProjectSchema = mongoose.Schema({
     },
     address: {
         type: String,
-        required: true,
         unique: true
     },
     creator: {
@@ -69,9 +68,6 @@ module.exports.invest = function (project, user, amount, callback) {
 
 module.exports.add = function (project, callback) {
 
-    // TODO: add to blockchain
-    project.address = "" + Math.random();
     project.fundingStatus = 0;
-
     project.save(callback);
 }

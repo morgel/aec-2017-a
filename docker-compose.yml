@@ -22,3 +22,8 @@ services:
         - "4200:4200"
       volumes:
         - ./public/src:/frontend/src
+  testrpc:
+      image: dougvk/testrpc:latest
+      command: bash -c "testrpc -h 0.0.0.0"
+      ports:
+          - "8545:8545"

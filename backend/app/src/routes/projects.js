@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const Project = require('../models/project');
+const Contract = require('../models/contract');
 
 // get all Projects
 router.get('/', (req, res, next) => {
@@ -19,19 +20,33 @@ router.get('/', (req, res, next) => {
 
 // Create a project (user needs to be logged in)
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    let project = new Project({
-        name: req.body.name,
-        description: req.body.description,
-        fundingGoal: req.body.fundingGoal,
-        creator: req.user.id
-    });
 
-    Project.add(project, (err, project) => {
+    console.log(JSON.stringify(req.user));
+
+    Contract.create(req.user.address, req.body.fundingGoal, (err, contract)=> {
         if (err) {
-            res.json({success: false, msg: 'Failed to create project: ' + err});
-        } else {
-            res.status(201);
-            res.json(project);
+            res.json({success: false, msg: 'Failed to create contract: ' + err});
+        }
+        else {
+            if (typeof contract.address !== 'undefined') {
+                var project = new Project({
+                    name: req.body.name,
+                    description: req.body.description,
+                    fundingGoal: req.body.fundingGoal,
+                    creator: req.user.id,
+                    address: contract.address
+                });
+
+                Project.add(project, (err, project) => {
+                    if (err) {
+                        // TODO: Rollback on blockchain
+                        res.json({success: false, msg: 'Failed to create project: ' + err});
+                    } else {
+                        res.status(201);
+                        res.json(project);
+                    }
+                });
+            }
         }
     });
 });
