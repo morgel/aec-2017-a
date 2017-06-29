@@ -73,4 +73,15 @@ router.get('/profile/projects', passport.authenticate('jwt', {session: false}), 
     });
 });
 
+// Created projects
+router.get('/profile/investments', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    Project.getByBacker(req.user.id, (err, projects) => {
+        if (err) {
+            res.json({success: false, msg: 'Unable to fetch projects: ' + err});
+        } else {
+            res.json(projects);
+        }
+    });
+});
+
 module.exports = router;

@@ -46,8 +46,14 @@ module.exports.getByCreator = function (creatorId, callback) {
     Model.find({creator: creatorId}, callback);
 }
 
+module.exports.getByBacker = function (backerId, callback) {
+    Model.find({'backers.user': backerId}, callback);
+}
+
 
 module.exports.invest = function (project, user, amount, callback) {
+
+    // TODO: invest in blockchain
 
     project.backers.push({
         user: user.id,
