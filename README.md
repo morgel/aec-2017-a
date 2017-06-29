@@ -1,10 +1,21 @@
-# Blockstarter 4 Frontend
+# Blockstarter 4
 
 ## Structure of the repo
 
-### app
+### Backend
 
-Nodejs backend app. Main functionality: Authentication via JWT.
+User-Endpoints:
+
+* POST /users (Create a user)
+* POST /users/authenticate (Login)
+* GET /users/profile (Get the profile of the logged-in user)
+* GET /users/profile/projects (Get all projects the logged-in user created)
+* GET /users/profile/investments (Get all projects the logged-in user invested in)
+
+Project-Endpoints:
+* GET /projects (List all projects)
+* POST /projects (Create a new project - must be logged-in)
+* POST /projects/:id/invest (Invest in a project - must be logged-in)
 
 ### public
 
@@ -12,43 +23,17 @@ Angular frontend app.
 
 ## Getting Started
 
-### Step 1: Start mongodb
+### Step 1: Start Application
 
-Run `mongod`.
+Run `docker-compose up`.
 
-### Step 2: Run node app
+The frontend is available at `http://localhost:4200/`, the backend at `http://localhost:3000/`
 
-Navigate to app folder.
-Run `npm install`.
-Run `nodemon`.
-Node app will run at `http://localhost:3000/`.
+On startup, two user get created
+User 1: creator
+User 2: backer
+Password: blockstarter4
 
-### Step 3: Initially register user via Postman
-
-Endpoint:
-`http://localhost:3000/users/register`
-
-Headers:
-`Content-Type: application/json`
-
-Body:
-`{
-  	"username": "jblock",
-  	"address": "123",
-  	"password": "blockstarter4"
-  }`
-
-### Step 4: Run Angular app
-
-Navigate to public folder.
-Run `npm install`.
-Run `ng serve --open`.
-Angular app will run at `http://localhost:4200/`.
-
-### Step 5: Login with given credentials
+### Step 2: Login with given credentials
 
 Navigate to Login. Type in the given credentials to enter.
-
-## Next steps
-
-tpd...
