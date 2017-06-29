@@ -22,8 +22,6 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 
-
-
 // Port Number
 const port = 8080;
 
@@ -47,6 +45,9 @@ const users = require('./routes/users');
 const projects = require('./routes/projects');
 app.use('/users', users);
 app.use('/projects', projects);
+
+// create some initial user for testing
+require('./config/startup')();
 
 // Index Route
 app.get('/', (req, res) => {
