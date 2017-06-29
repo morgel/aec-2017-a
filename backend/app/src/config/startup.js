@@ -12,7 +12,7 @@ module.exports = function () {
 
         User.getUserByUsername(username, (err, user) => {
 
-            var user = new User({
+            var newUser = new User({
                 username: username,
                 password: "blockstarter4",
                 address: web3.eth.accounts[i]
@@ -22,10 +22,11 @@ module.exports = function () {
                 console.log("Error creating initial user " + username);
             } else if (user !== null) {
                 user.remove((err, result) => {
-                    User.addUser(user);
+                    console.log("add new user")
+                    User.addUser(newUser);
                 });
             }else{
-                User.addUser(user);
+                User.addUser(newUser);
             }
             i++;
 

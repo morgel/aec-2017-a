@@ -46,15 +46,22 @@ const projects = require('./routes/projects');
 app.use('/users', users);
 app.use('/projects', projects);
 
-// create some initial user for testing
-require('./config/startup')();
+
+
+var startup = function(){
+    // create some initial user for testing
+    require('./config/startup')();
 
 // Index Route
-app.get('/', (req, res) => {
-    res.send('Invalid Endpoint');
-});
+    app.get('/', (req, res) => {
+        res.send('Invalid Endpoint');
+    });
 
 // Start Server
-app.listen(port, () => {
-    console.log('Server started on port ' + port);
-});
+    app.listen(port, () => {
+        console.log('Server started on port ' + port);
+    });
+}
+
+// give testrpc some time to start
+setTimeout(startup, 3000);
