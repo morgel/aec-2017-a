@@ -1,15 +1,15 @@
 FROM node:7.1-slim
 
 # Create app directory
-RUN mkdir -p /backend/src
-WORKDIR /backend
+RUN mkdir -p /frontend/src
+WORKDIR /frontend
 
 # Install app dependencies
-ADD package.json /backend/
+ADD package.json /frontend/
 RUN npm install
 
 # Add app source
-ADD src /backend/src
+COPY . /frontend
 
-EXPOSE 8080
+EXPOSE 4200
 CMD [ "npm", "start" ]
