@@ -33,11 +33,10 @@ Headers:
 
 Body:
 `{
- 	"name": "Johnny Blockstarter",
- 	"email": "blockstarter@rich.com",
- 	"username": "jblock",
- 	"password": "blockstarter4"
- }`
+  	"username": "jblock",
+  	"address": "123",
+  	"password": "blockstarter4"
+  }`
 
 ### Step 4: Run Angular app
 
