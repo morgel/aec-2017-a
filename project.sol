@@ -33,7 +33,7 @@ contract Project{
   uint project_end;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
-    // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
+    // not yet added all parameters in constructor to initialize additional attributes (category,..., project_end)
     owner = msg.sender;
     funding_goal = goal;
     percentOfAllTokensDistributedToBackers = _percentOfAllTokensDistributedToBackers;
@@ -136,7 +136,6 @@ contract Project{
       return percentOfAllTokensDistributedToBackers;
   }
   function getOwnerAddress() constant public returns(address){
-  // keep this function?
     return owner;
   }
   function getCurrentBalance() constant public returns(uint){
