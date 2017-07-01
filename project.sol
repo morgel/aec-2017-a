@@ -33,13 +33,15 @@ contract Project{
   uint project_end;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
-    // not yet added all parameters in constructor to initialize additional attributes (category,..., project_end)
+    // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
     owner = msg.sender;
     funding_goal = goal;
     percentOfAllTokensDistributedToBackers = _percentOfAllTokensDistributedToBackers;
     creationDate = now;
     // 30 days funding period
-    fundingEnd = creationDate + 30* 1 seconds;
+    fundingEnd = creationDate + 30* 1 days;
+    // for tests use 30 seconds:
+    //fundingEnd = creationDate + 30* 1 seconds;
     successfullyFunded = false;
     totalWithdrawnAmount = 0;
   }
