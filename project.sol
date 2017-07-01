@@ -19,24 +19,36 @@ contract Project{
 
   uint percentOfAllTokensDistributedToBackers;
 
+  bool private successfullyFunded;
+
+// Note that time is in seconds
+// i.e. 30 days funding period equals 30days*24hours*60minutes*60seconds = 2592000
+  uint creationDate;
+  uint fundingEnd;
+
   string category;
   string title;
   string description;
   uint project_start;
   uint project_end;
-  uint funding_start;
-  uint funding_end;
-
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
     // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
     owner = msg.sender;
     funding_goal = goal;
     percentOfAllTokensDistributedToBackers = _percentOfAllTokensDistributedToBackers;
+    creationDate = now;
+    // 30 days funding period
+    fundingEnd = creationDate + 30* 1 seconds;
+    successfullyFunded = false;
     totalWithdrawnAmount = 0;
   }
 
   function() payable public{
+  if(isFunded()){
+  throw;
+  }
+  else{
     if(backers[msg.sender] != 0){
       backers[msg.sender] += msg.value;
       paid_in += msg.value;
@@ -47,18 +59,30 @@ contract Project{
       paid_in += msg.value;
     }
   }
+  }
 
   function myTokenShare() constant returns(uint){
       uint tokenShareInPercent = 0;
-      uint paidInAmount = backers[msg.sender];
+      uint backerPaidInAmount = backers[msg.sender];
       assert(paid_in>0);
-      tokenShareInPercent = paidInAmount * percentOfAllTokensDistributedToBackers / paid_in ;
+      tokenShareInPercent = backerPaidInAmount * percentOfAllTokensDistributedToBackers / paid_in ;
       return tokenShareInPercent;
   }
 
   function isFunded() constant public returns(bool){
-   // assert(funding_goal>0);
-    return paid_in>=funding_goal;
+  if(now > fundingEnd){
+    if(paid_in>=funding_goal){
+      successfullyFunded = true;
+      return successfullyFunded;
+    }
+    else{
+    kill();
+    return false;
+    }
+  }
+  else{
+    return false;
+  }
   }
 
   function getFundingStatus() constant public returns(uint){
@@ -94,11 +118,11 @@ contract Project{
   function getNumberOfBackers() constant public returns(uint){
       return numberOfBackers;
   }
-  
+
   function getMyPaidInAmount()constant public returns(uint){
       return backers[msg.sender];
   }
-  
+
   function getFundingGoal() constant public returns(uint){
       return funding_goal;
   }
@@ -117,5 +141,11 @@ contract Project{
   }
   function getCurrentBalance() constant public returns(uint){
     return this.balance;
+  }
+  function getCreationDate() constant public returns(uint){
+    return creationDate;
+  }
+  function getFundingEnd() constant public returns(uint){
+    return fundingEnd;
   }
 }
