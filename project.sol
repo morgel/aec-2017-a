@@ -47,9 +47,7 @@ contract Project{
   }
 
   function() payable public{
-  if(isFunded()){
-  throw;
-  }
+  assert(!isFunded());
   else{
     if(backers[msg.sender] != 0){
       backers[msg.sender] += msg.value;
@@ -148,5 +146,95 @@ contract Project{
   }
   function getFundingEnd() constant public returns(uint){
     return fundingEnd;
+  }
+
+  struct Offer {
+    address seller;
+    uint price;
+    uint created;
+    uint offerDeadline;
+    uint numberOfUnits;
+    address buyer;
+    uint id;
+  }
+
+  uint counterOffers = 0;
+  mapping(uint => Offer) idOffer;
+  Offer[] currentOffers;
+  Offer[] archivedOffers;
+
+  function createOffer(uint numberOfUnitsToTrade, uint specifiedPrice){
+    assert(thisSellerhasOnlyOneCurrentOffer());
+    assert(backers[msg.sender] >= numberOfUnitsToTrade);
+
+    Offer newOffer;
+    newOffer.seller = msg.sender;
+    newOffer.price = specifiedPrice;
+    newOffer.created = now;
+    newOffer.offerDeadline = created + 5 * 1 days;
+    newOffer.numberOfUnits = numberOfUnitsToTrade;
+    newOffer.buyer = 0;
+    newOffer.id = counterOffers;
+
+    idOffer[counterOffers] = newOffer;
+    currentOffers.push(newOffer);
+
+    counterOffers += 1;
+
+  }
+
+  function thisSellerhasOnlyOneCurrentOffer() constant private returns(bool){
+    hasOnlyOneOffer = true;
+    for(uint i = 0; i < currentOffers.length; i++){
+        if(msg.sender == currentOffers[i].seller){
+          hasOnlyOneOffer = false;
+          return hasOnlyOneOffer;
+        }
+    }
+    return hasOnlyOneOffer;
+  }
+
+  function buyShares(uint offerId){
+    // like this the offer's Id is the parameter to identify the offer
+    // other parameters would be possible, e.g. seller address
+    Offer offerToBuy;
+    for(uint i = 0; i < currentOffers.length; i++){
+        if(offerId == currentOffers[i].id){
+          offerToBuy = currentOffers[i];
+        }
+    }
+    assert(offerToBuy != 0);
+    assert(offerToBuy.buyer == 0);
+    assert(msg.value >= offerToBuy.price);
+
+    offerToBuy.buyer = msg.sender;
+    (offerToBuy.seller).transfer(msg.value);
+
+    backers[offerToBuy.seller] -= offerToBuy.numberOfUnits;
+    if(backers[msg.sender] != 0){
+      backers[msg.sender] += offerToBuy.numberOfUnits;
+    } else {
+      indicesAddresses[numberOfBackers] = msg.sender;
+      numberOfBackers += 1;
+      backers[msg.sender] += offerToBuy.numberOfUnits;
+    }
+
+    removeOfferfromCurrentOffers(offerToBuy);
+    archivedOffers.push(offerToBuy);
+  }
+
+  function removeOfferfromCurrentOffers(Offer offerToDelete){
+    uint idToFind = offerToDelete.id;
+    uint indexOfOffer = -1;
+    for(uint i = 0; i < currentOffers.length; i++){
+        if(idToFind == currentOffers[i].id){
+          indexOfOffer = i;
+        }
+    }
+    assert(indexOfOffer != -1);
+
+    //swap with last, so gaps are prevented
+    currentOffers[indexOfOffer] = currentOffers[currentOffers.length-1];
+    delete currentOffers[currentOffers.length-1];
   }
 }
