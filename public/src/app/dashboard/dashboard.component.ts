@@ -1,7 +1,8 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MD_DIALOG_DATA} from '@angular/material';
-import  {ProjectsService} from '../services/projects.service';
+import {ProjectsService} from '../services/projects.service';
 import {MdDialog} from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   investedProjectsLoaded = false;
 
   constructor(
+    private router: Router,
     private projectsService: ProjectsService,
     public dialog: MdDialog) {
   }
@@ -52,6 +54,10 @@ export class DashboardComponent implements OnInit {
           this.investedProjectsLoaded = true;
         }
       );
+  }
+
+  gotoDetail(project): void {
+    this.router.navigate(['/detail', project._id]);
   }
 
   ngOnInit() {

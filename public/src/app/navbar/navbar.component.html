@@ -26,6 +26,10 @@
                 routerLink="./investments">
           Make Investment
         </button>
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./marketplace">
+          Marketplace
+        </button>
         <button class="hidden-xs hidden-sm" *ngIf="!authService.loggedIn()" md-button routerLink="./login">
           Login
         </button>
@@ -45,19 +49,21 @@
             <span>
               Create Project
             </span>
-
           </button>
           <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./investments">
             <span>
               Make Investment
             </span>
-
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./marketplace">
+            <span>
+              Marketplace
+            </span>
           </button>
           <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item routerLink="./login">
             <span>
               Login
             </span>
-
           </button>
           <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item>
             <span>
