@@ -67,8 +67,8 @@ contract Project{
             numberOfBackers += 1;
         }
     
-      tokens_of_backers[msg.sender] += msg.value/nominal_token_value;
-      emitted_tokens += msg.value/nominal_token_value;
+      tokens_of_backers[msg.sender] += msg.value;
+      emitted_tokens += msg.value;
       backers[msg.sender] += msg.value;
       paid_in += msg.value;
 }
@@ -123,8 +123,9 @@ function gettokensoffered() constant returns(uint, uint){
 }
 
 
-function buyTokens(address tokenowner,uint tokennumber) payable public{
-    if (tokens_offered[tokenowner]>=tokennumber){
+function buyTokens(address tokenowner) payable public{
+    
+        assert(msg.value>=tokens_offered[tokenowner]);
         bool exists =false;
         for(uint i = 0; i < numberOfBackers; i++){
             if (indicesAddresses[i]== msg.sender)
@@ -136,17 +137,11 @@ function buyTokens(address tokenowner,uint tokennumber) payable public{
             indicesAddresses[numberOfBackers] = msg.sender;
             numberOfBackers += 1;
         }
-
-        
-        tokenowner.transfer(tokennumber*offered_price[tokenowner]);
-        tokens_offered[tokenowner]-=tokennumber;
-        tokens_of_backers[tokenowner]-=tokennumber;
-        tokens_of_backers[msg.sender]+=tokennumber;
-        
-        
-    }
-    else
-    {throw;}
+        tokenowner.transfer(offered_price[tokenowner]);
+        tokens_of_backers[tokenowner]-=tokens_offered[tokenowner];
+        tokens_of_backers[msg.sender]+=tokens_offered[tokenowner];
+        tokens_offered[tokenowner]=0;
+        offered_price[tokenowner]=0;
 }
 
     
@@ -160,23 +155,27 @@ function buyTokens(address tokenowner,uint tokennumber) payable public{
       return tokenShareInPercent;
   }
   
-  
-  
 
   function isFunded() constant public returns(bool){
-  if(now > fundingEnd){
+  if(isActive()){
     if(paid_in>=funding_goal){
       successfullyFunded = true;
       return successfullyFunded;
     }
     else{
-    kill();
     return false;
     }
   }
   else{
     return false;
   }
+  }
+  
+  function isActive() constant public returns(bool){
+      if(now > fundingEnd){
+          return false;
+      }
+      else {return true;}
   }
 
   function getFundingStatus() constant public returns(uint){
@@ -203,8 +202,10 @@ function buyTokens(address tokenowner,uint tokennumber) payable public{
     //redistribute funds
         for(uint i = 0; i < numberOfBackers; i++){
             address backer = indicesAddresses[i];
-            backer.transfer(backers[backer]);
+            backer.transfer(tokens_of_backers[backer]);
+            tokens_of_backers[backer]=0;
         }
+        
     selfdestruct(owner); //should return 0 value
     }
   }
