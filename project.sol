@@ -36,7 +36,7 @@ contract Project{
   mapping(address => uint) tokens_of_backers;
   mapping(address => uint) tokens_offered;
   mapping(address => uint) offered_price;
-  uint nominal_token_value;
+  uint nominal_token_value = 1;
   uint emitted_tokens;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
@@ -55,10 +55,17 @@ contract Project{
 
   function() payable public{
     assert(!isFunded());
-    if(backers[msg.sender] == 0){
-        indicesAddresses[numberOfBackers] = msg.sender;
-        numberOfBackers += 1;
-    }
+    bool exists =false;
+        for(uint i = 0; i < numberOfBackers; i++){
+            if (indicesAddresses[i]== msg.sender)
+            {
+                exists = true;
+            }
+        }
+        if (!exists){
+            indicesAddresses[numberOfBackers] = msg.sender;
+            numberOfBackers += 1;
+        }
     
       tokens_of_backers[msg.sender] += msg.value/nominal_token_value;
       emitted_tokens += msg.value/nominal_token_value;
@@ -78,6 +85,19 @@ function getallTokenOwners() constant returns(address[], uint[]) {
             tokens[i] = tokens_of_backers[indicesAddresses[i]];
     }
     return (addresses,tokens);
+}
+
+
+function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
+    address[]memory addresses  = new address[](numberOfBackers);
+    uint[]memory tokens  = new uint[](numberOfBackers);
+    uint[]memory price  = new uint[](numberOfBackers);
+    for(uint i = 0; i < numberOfBackers; i++){
+            addresses[i] = indicesAddresses[i];
+            tokens[i] = tokens_offered[indicesAddresses[i]];
+            price[i] = offered_price[indicesAddresses[i]];
+    }
+    return (addresses,tokens,price);
 }
 
 function getemittedtokens() constant returns(uint){
@@ -105,10 +125,18 @@ function gettokensoffered() constant returns(uint, uint){
 
 function buyTokens(address tokenowner,uint tokennumber) payable public{
     if (tokens_offered[tokenowner]>=tokennumber){
-    if(tokens_of_backers[msg.sender] == 0){
-        indicesAddresses[numberOfBackers] = msg.sender;
-        numberOfBackers += 1;
-    }
+        bool exists =false;
+        for(uint i = 0; i < numberOfBackers; i++){
+            if (indicesAddresses[i]== msg.sender)
+            {
+                exists = true;
+            }
+        }
+        if (!exists){
+            indicesAddresses[numberOfBackers] = msg.sender;
+            numberOfBackers += 1;
+        }
+
         
         tokenowner.transfer(tokennumber*offered_price[tokenowner]);
         tokens_offered[tokenowner]-=tokennumber;
