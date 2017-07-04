@@ -22,6 +22,7 @@ export class InvestmentsComponent implements OnInit {
         data => {
           this.allProjects = data;
           this.allProjectsLoaded = true;
+          console.log(data);
         }
       );
   }
@@ -32,7 +33,6 @@ export class InvestmentsComponent implements OnInit {
     investDialog.afterClosed().subscribe(result => {
       if (result) {
         this.getAllProjects();
-        console.log(this.allProjects);
       }
     });
   }
@@ -57,8 +57,10 @@ export class InvestmentsDialog {
   makeInvestment() {
     console.log(this.amount, this.project.name);
     this.projectsService.makeInvestment(this.project, this.amount)
-      .subscribe(
-        data => console.log(data)
-      );
+      .subscribe( data => {
+          console.log(data);
+          this.amount = 0;
+          this.project = null;
+      });
   }
 }
