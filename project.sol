@@ -31,6 +31,13 @@ contract Project{
   string description;
   uint project_start;
   uint project_end;
+  
+//nominal value of a token in wei
+  mapping(address => uint) tokens_of_backers;
+  mapping(address => uint) tokens_offered;
+  mapping(address => uint) offered_price;
+  uint nominal_token_value;
+  uint emitted_tokens;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
     // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
@@ -45,6 +52,30 @@ contract Project{
     successfullyFunded = false;
     totalWithdrawnAmount = 0;
   }
+
+function fundwithtoken() payable public{
+     if(backers[msg.sender] != 0){
+      backers[msg.sender] += msg.value;
+      tokens_of_backers[msg.sender] += msg.value/nominal_token_value;
+      emitted_tokens += msg.value/nominal_token_value;
+      paid_in += msg.value;
+    } else {
+      indicesAddresses[numberOfBackers] = msg.sender;
+      numberOfBackers += 1;
+      tokens_of_backers[msg.sender] += msg.value/nominal_token_value;
+      emitted_tokens += msg.value/nominal_token_value;
+      backers[msg.sender] += msg.value;
+      paid_in += msg.value;
+    }
+}
+
+function getmyTokens() constant returns(uint){
+      return tokens_of_backers[msg.sender];
+  }
+function getemittedtokens() constant returns(uint){
+      return emitted_tokens;
+  }
+    
 
   function() payable public{
   assert(!isFunded());
