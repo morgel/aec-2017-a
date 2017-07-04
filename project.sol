@@ -97,7 +97,7 @@ function gettokensoffered() constant returns(uint, uint){
 
 function buyTokens(address tokenowner,uint tokennumber) payable public{
     if (tokens_offered[tokenowner]>=tokennumber){
-        tokenowner.transfer(tokennumber*offered_price[tokenowner]);tokenowner]-=tokennumber;
+        tokenowner.transfer(tokennumber*offered_price[tokenowner]);
         tokens_offered[tokenowner]-=tokennumber;
         tokens_of_backers[tokenowner]-=tokennumber;
         tokens_of_backers[msg.sender]+=tokennumber;
