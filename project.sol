@@ -31,7 +31,7 @@ contract Project{
   string description;
   uint project_start;
   uint project_end;
-  
+
 //nominal value of a token in wei
   mapping(address => uint) tokens_of_backers;
   mapping(address => uint) tokens_offered;
@@ -75,6 +75,37 @@ function getmyTokens() constant returns(uint){
 function getemittedtokens() constant returns(uint){
       return emitted_tokens;
   }
+
+    
+    
+function offermyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
+    
+        if(tokennumber > tokens_of_backers[msg.sender]-tokens_offered[msg.sender])
+        {throw;}
+        else{
+        tokens_offered[msg.sender]=tokennumber;
+        offered_price[msg.sender]=tokenprice;
+        }
+        return (tokens_offered[msg.sender], offered_price[msg.sender]);
+    
+}
+
+function gettokensoffered() constant returns(uint, uint){
+    return (tokens_offered[msg.sender], offered_price[msg.sender]);
+}
+
+
+function buyTokens(address tokenowner,uint tokennumber) payable public{
+    if (tokens_offered[tokenowner]>=tokennumber){
+        tokenowner.transfer(tokennumber*offered_price[tokenowner]);tokenowner]-=tokennumber;
+        tokens_offered[tokenowner]-=tokennumber;
+        tokens_of_backers[tokenowner]-=tokennumber;
+        tokens_of_backers[msg.sender]+=tokennumber;
+    }
+    else
+    {throw;}
+}
+
     
 
   function() payable public{
