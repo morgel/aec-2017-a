@@ -19,7 +19,17 @@
         <md-input-container class="full-width">
           <input mdInput type="text" placeholder="Goal" [(ngModel)]="goal" name="goal">
         </md-input-container>
-        <button md-raised-button color="primary" (click)="createProject()">Create Project</button>
+        <h4>Funding end date</h4>
+        <md-input-container class="full-width">
+          <input mdInput  [mdDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+          <button mdSuffix [mdDatepickerToggle]="picker"></button>
+        </md-input-container>
+        <md-datepicker #picker></md-datepicker>
+        <h4>Total share for backers</h4>
+        <md-input-container class="full-width">
+          <input mdInput type="text" placeholder="Share" [(ngModel)]="share" name="share">
+        </md-input-container>
+        <button md-raised-button class="full-width" color="primary" (click)="createProject()">Create Project</button>
       </md-card>
       <md-card *ngIf="isCreated">
         Project created!

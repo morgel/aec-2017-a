@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {MdButtonModule, MdCheckboxModule, MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
-import {MdDialogModule, MdMenuModule, MdSelectModule, MdProgressBarModule} from '@angular/material';
+import {MdDialogModule, MdMenuModule, MdSelectModule, MdProgressBarModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
@@ -59,7 +59,9 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     FlashMessagesModule,
     MdMenuModule,
     MdSelectModule,
-    MdProgressBarModule
+    MdProgressBarModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   providers: [
     AuthService,

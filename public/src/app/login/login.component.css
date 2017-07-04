@@ -1,6 +1,7 @@
 .background-image {
   background-image: url("../../assets/startup.jpg");
   background-size: cover;
+  background-position: center center;
   display: block;
   filter: blur(5px);
   -webkit-filter: blur(5px);
