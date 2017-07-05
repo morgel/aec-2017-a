@@ -163,17 +163,12 @@ function buyTokens(address tokenowner) payable public{
         offered_price[tokenowner]=0;
 }
 
-    
-
-
   function myTokenShare() constant returns(uint){
       uint tokenShareInPercent = 0;
-      uint tokensOfBacker = tokens_of_backers[msg.sender];
-      assert(paid_in>0);
-      tokenShareInPercent = tokensOfBacker * percentOfAllTokensDistributedToBackers / paid_in ;
+      assert(emitted_tokens>0);
+      tokenShareInPercent = tokens_of_backers[msg.sender] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
       return tokenShareInPercent;
-  }
-  
+  }  
 
   function isFunded() constant public returns(bool){
   if(!isActive()){
