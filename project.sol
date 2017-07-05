@@ -165,7 +165,7 @@ function buyTokens(address tokenowner) payable public{
       return tokenShareInPercent;
   }  
   
-  function getmyOfferedTokens() constant returns(uint,uint,bool){
+  function gettokensoffered() constant returns(uint,uint,bool){
     bool offerActive = true;
     if (tokens_offered[msg.sender]==0){offerActive = false;}
     return (tokens_offered[msg.sender],offered_price[msg.sender],offerActive);
