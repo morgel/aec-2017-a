@@ -32,7 +32,9 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next
                     description: req.body.description,
                     fundingGoal: req.body.fundingGoal,
                     creator: req.user.id,
-                    address: contract.address
+                    address: contract.address,
+                    fundingEnd: req.body.fundingEnd,
+                    totalShare: req.body.totalShare
                 });
 
                 Project.add(project, (err, project) => {

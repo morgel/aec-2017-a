@@ -57,12 +57,16 @@ router.post('/authenticate', (req, res, next) => {
     })
 });
 
-// Profile
+/**
+ * Get user details.
+ */
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.send({user: req.user});
 });
 
-// Created projects
+/**
+ * Get created projects.
+ */
 router.get('/profile/projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Project.getByCreator(req.user.id, (err, projects) => {
         if (err) {
@@ -73,13 +77,64 @@ router.get('/profile/projects', passport.authenticate('jwt', {session: false}), 
     });
 });
 
-// Created projects
+/**
+ * Get backed projects.
+ */
 router.get('/profile/investments', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Project.getByBacker(req.user.id, (err, projects) => {
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
         } else {
             res.json(projects);
+        }
+    });
+});
+
+/**
+ * Get backed projects, which are successfuly funded + funding end date is already reached.
+ */
+router.get('/profile/funded-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    Project.getByBacker(req.user.id, (err, projects) => {
+        if (err) {
+            res.json({success: false, msg: 'Unable to fetch projects: ' + err});
+        } else {
+
+            var projectData = {projects: []};
+
+            //Loop over full list of backed projects
+            for (var i = 0; i < projects.length; i++) {
+
+                //Check blockchain whether the project is successfully funded
+                Contract.isFunded(req.user.address, projects[i].address, (isFunded) => {
+
+                    //Add project to return data
+                    if (!isFunded) {
+                        continue;
+                    }
+
+                    var project = projects[i];
+
+                    //Check whether user currently has an open offer for the project
+                    //and get the amount
+                    Contract.getTokensOffered(req.user.address, project.address, (tokenAmount) => {
+                        if (tokenAmount > 0) {
+                            project.hasOffer = true;
+                            project.offeredTokenAmount = tokenAmount;
+                        } else {
+                            project.hasOffer = false;
+                            project.offeredTokenAmount = 0;
+                        }
+                    });
+
+                    Contract.getTokenShare(req.user.address, project.address, (tokenAmount) => {
+                        project.tokenHoldingAmount = tokenAmount;
+                    });
+
+                    projectData.projects.push(project);
+                });
+            }//End: for
+
+            res.json(projectData);
         }
     });
 });

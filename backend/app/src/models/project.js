@@ -25,6 +25,10 @@ const ProjectSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    totalShare: {
+        type: Number,
+        required: true,
+    },
     backers: [new mongoose.Schema({
         user: String,
         amount: Number
@@ -48,7 +52,6 @@ module.exports.getByCreator = function (creatorId, callback) {
 module.exports.getByBacker = function (backerId, callback) {
     Model.find({'backers.user': backerId}, callback);
 }
-
 
 module.exports.invest = function (project, user, amount, callback) {
 
