@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
 const Project = require('../models/project');
+const Contract = require('../models/contract');
 
 // Register
 router.post('/', (req, res, next) => {
@@ -147,23 +148,32 @@ router.get('/profile/invested-projects', passport.authenticate('jwt', {session: 
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
         } else {
 
-            var projectData = {projects: []};
+            console.log("*** User: " + req.user);
+
+            var projectData = {"projects": []};
 
             //Loop over full list of backed projects
             for (var i = 0; i < projects.length; i++) {
 
-                var project = projects[i];
+                var project = projects[i].toJSON();
 
                 //Check blockchain whether the project is successfully funded
-                Contract.isActive(req.user.address, project.address, (isActive) => {
+                Contract.isActive(req.user.address, project.address, (Error, isActive) => {
+
+                    // console.log("***isActive1:" + isActive);
+                    // console.log("***Error1:" + Error);
+                    // console.log("***isActive:" + JSON.stringify(isActive));
+                    // console.log("***Error:" + JSON.stringify(Error));
+
                     if (isActive) {
-                        project.isActive = true;
+                        project.isActive = isActive;
+                        console.log("***Project: " + JSON.stringify(project));
                         projectData.projects.push(project);
                     }
                 });
 
             }//End: for
-
+            console.log("***ProjectData: " + JSON.stringify(projectData));
             res.json(projectData);
 
         }

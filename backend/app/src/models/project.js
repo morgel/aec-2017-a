@@ -17,6 +17,10 @@ const ProjectSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    fundingEnd: {
+        type: Date,
+        required: false
+    },
     address: {
         type: String,
         unique: true
@@ -27,7 +31,7 @@ const ProjectSchema = mongoose.Schema({
     },
     totalShare: {
         type: Number,
-        required: true,
+        required: false,
     },
     backers: [new mongoose.Schema({
         user: String,
@@ -61,7 +65,9 @@ module.exports.invest = function (project, user, amount, callback) {
         user: user.id,
         amount: amount
     })
-    project.fundingStatus = project.fundingStatus + parseInt(amount);
+
+    project.fundingStatus = project.fundingStatus + amount;
+
     project.save(callback);
 
 }
