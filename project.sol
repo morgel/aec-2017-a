@@ -157,7 +157,7 @@ function buyTokens(address tokenowner) payable public{
   
 
   function isFunded() constant public returns(bool){
-  if(isActive()){
+  if(!isActive()){
     if(paid_in>=funding_goal){
       successfullyFunded = true;
       return successfullyFunded;
