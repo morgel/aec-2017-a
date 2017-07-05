@@ -36,7 +36,7 @@ contract Project{
   mapping(address => uint) tokens_of_backers;
   mapping(address => uint) tokens_offered;
   mapping(address => uint) offered_price;
-  uint nominal_token_value = 1;
+  //uint nominal_token_value = 1;
   uint emitted_tokens;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
