@@ -137,11 +137,6 @@ function offermyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
     
 }
 
-function gettokensoffered() constant returns(uint, uint){
-    return (tokens_offered[msg.sender], offered_price[msg.sender]);
-}
-
-
 function buyTokens(address tokenowner) payable public{
     
         assert(msg.value>=offered_price[tokenowner]);
@@ -169,6 +164,12 @@ function buyTokens(address tokenowner) payable public{
       tokenShareInPercent = tokens_of_backers[msg.sender] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
       return tokenShareInPercent;
   }  
+  
+  function getmyOfferedTokens() constant returns(uint,uint,bool){
+    bool offerActive = true;
+    if (tokens_offered[msg.sender]==0){offerActive = false;}
+    return (tokens_offered[msg.sender],offered_price[msg.sender],offerActive);
+  }
 
   function isFunded() constant public returns(bool){
   if(!isActive()){
