@@ -73,6 +73,10 @@ contract Project{
       paid_in += msg.value;
 }
 
+function getemittedtokens() constant returns(uint){
+      return emitted_tokens;
+}
+
 function getmyTokens() constant returns(uint){
       return tokens_of_backers[msg.sender];
   }
