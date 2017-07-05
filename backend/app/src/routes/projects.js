@@ -112,7 +112,7 @@ router.delete('/:project', passport.authenticate('jwt', {session: false}), (req,
                 else {
                     // TODO: possibly handle error with database to keep in sync with blockchain
                     project.remove();
-                    res.json({success: false, msg: 'Successfully killed'});
+                    res.json({success: true, msg: 'Successfully killed'});
                 }
             });
         }

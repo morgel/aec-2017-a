@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import {MdButtonModule, MdCheckboxModule,MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
-import {MdDialogModule, MdMenuModule, MdSelectModule,MdProgressBarModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
+import {MdDialogModule, MdMenuModule, MdSelectModule, MdProgressBarModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
@@ -22,6 +22,8 @@ import {ProjectsService} from './services/projects.service';
 
 
 import {FlashMessagesModule } from 'angular2-flash-messages';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
     DashboardComponent,
     InvestmentsDialog,
     CancelProjectDialog,
-    WithdrawFundingDialog
+    WithdrawFundingDialog,
+    MarketplaceComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
     FlashMessagesModule,
     MdMenuModule,
     MdSelectModule,
-    MdProgressBarModule
+    MdProgressBarModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   providers: [
     AuthService,

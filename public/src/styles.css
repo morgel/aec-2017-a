@@ -79,7 +79,7 @@ md-toolbar {
 .content-container{
   width: 100%;
   background-color: #E4F6F8;
-  height: auto;
+  min-height: calc(60vh - 64px);
 }
 
 .content-container h3 {
@@ -99,7 +99,7 @@ md-toolbar {
 
 
 .project-description-text {
-  min-height: 100px;
+  min-height: 50px;
   max-height: 100px;
   text-overflow: ellipsis;
 }
@@ -111,3 +111,6 @@ md-toolbar {
   border-bottom: 1px solid lightgrey;
 }
 
+md-progress-bar {
+  height: 10px !important;
+}

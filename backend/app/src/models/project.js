@@ -61,9 +61,7 @@ module.exports.invest = function (project, user, amount, callback) {
         user: user.id,
         amount: amount
     })
-
-    project.fundingStatus = project.fundingStatus + amount;
-
+    project.fundingStatus = project.fundingStatus + parseInt(amount);
     project.save(callback);
 
 }

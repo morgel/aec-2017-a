@@ -1,7 +1,8 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MD_DIALOG_DATA} from '@angular/material';
-import  {ProjectsService} from '../services/projects.service';
+import {ProjectsService} from '../services/projects.service';
 import {MdDialog} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,17 +16,26 @@ export class DashboardComponent implements OnInit {
   ownProjectsLoaded = false;
   investedProjectsLoaded = false;
 
-  constructor(
-    private projectsService: ProjectsService,
-    public dialog: MdDialog) {
+  constructor(private router: Router,
+              private projectsService: ProjectsService,
+              public dialog: MdDialog) {
   }
 
   openCancelProjectDialog(project) {
     const cancelDialog = this.dialog.open(CancelProjectDialog, {'data': project});
     cancelDialog.afterClosed().subscribe(result => {
       if (result) {
-        this.projectsService.cancelProject(project);
-        this.getOwnProjects();
+        this.projectsService.cancelProject(project).subscribe(
+          data => {
+            console.log(data);
+            if (data.success) {
+              const index = this.ownProjects.indexOf(project);
+              if (index > -1) {
+                this.ownProjects.splice(index, 1);
+              }
+            }
+          }
+        );
       }
     });
   }
@@ -54,6 +64,10 @@ export class DashboardComponent implements OnInit {
       );
   }
 
+  gotoDetail(project): void {
+    this.router.navigate(['/detail', project._id]);
+  }
+
   ngOnInit() {
     this.getOwnProjects();
     this.getFundedProjects();
@@ -66,11 +80,9 @@ export class DashboardComponent implements OnInit {
   templateUrl: 'cancelProjectDialog.html'
 })
 export class CancelProjectDialog {
-  project:any;
+  project: any;
 
-  constructor(
-    @Inject(MD_DIALOG_DATA) public data: any
-  ) {
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) {
     this.project = data;
   }
 }
@@ -79,11 +91,9 @@ export class CancelProjectDialog {
   templateUrl: 'withdrawFundingDialog.html'
 })
 export class WithdrawFundingDialog {
-  project:any;
+  project: any;
 
-  constructor(
-    @Inject(MD_DIALOG_DATA) public data: any
-  ) {
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) {
     this.project = data;
   }
 }

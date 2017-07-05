@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import  {ProjectsService} from '../services/projects.service';
+import {Component, OnInit} from '@angular/core';
+import {ProjectsService} from '../services/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -11,8 +11,11 @@ export class ProjectsComponent implements OnInit {
   description: String;
   goal: number;
   isCreated = false;
+  date: any;
+  share: number;
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService) {
+  }
 
   ngOnInit() {
   }
