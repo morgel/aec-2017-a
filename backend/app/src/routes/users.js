@@ -104,12 +104,13 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
             //Loop over full list of backed projects
             for (var i = 0; i < projects.length; i++) {
 
+                var project = projects[i];
+
                 //Check blockchain whether the project is successfully funded
-                Contract.isFunded(req.user.address, projects[i].address, (isFunded) => {
+                Contract.isFunded(req.user.address, project.address, (isFunded) => {
 
                     //Add project to return data
-                    if (isFunded) {                                    
-                        var project = projects[i];
+                    if (isFunded) {
 
                         //Check whether user currently has an open offer for the project
                         //and get the amount
@@ -151,8 +152,16 @@ router.get('/profile/invested-projects', passport.authenticate('jwt', {session: 
             //Loop over full list of backed projects
             for (var i = 0; i < projects.length; i++) {
 
+                var project = projects[i];
+
                 //Check blockchain whether the project is successfully funded
-                //Contract.isActive()
+                Contract.isActive(req.user.address, project.address, (isActive) => {
+                    if (isActive) {
+                        project.isActive = true;
+                        projectData.projects.push(project);
+                    }
+                });
+
             }//End: for
 
             res.json(projectData);

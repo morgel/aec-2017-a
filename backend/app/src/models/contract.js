@@ -313,7 +313,7 @@ module.exports.isFunded = function(userAddress, contractAddress, callback) {
 };
 
 module.exports.isActive = function(userAddress, contractAddress, callback) {
-    contract.at(contractAddress).isFunded.sendTransaction({
+    contract.at(contractAddress).isActive.sendTransaction({
             from: userAddress
         },
         callback
