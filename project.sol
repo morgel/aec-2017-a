@@ -54,7 +54,7 @@ contract Project{
   }
 
   function() payable public{
-    assert(!isFunded());
+    assert(isActive());
     bool exists =false;
         for(uint i = 0; i < numberOfBackers; i++){
             if (indicesAddresses[i]== msg.sender)
