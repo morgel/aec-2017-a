@@ -312,6 +312,14 @@ module.exports.isFunded = function(userAddress, contractAddress, callback) {
     );
 };
 
+module.exports.isActive = function(userAddress, contractAddress, callback) {
+    contract.at(contractAddress).isFunded.sendTransaction({
+            from: userAddress
+        },
+        callback
+    );
+};
+
 module.exports.getTokenShare = function(userAddress, contractAddress, callback) {
     contract.at(contractAddress).myTokenShare.sendTransaction({
             from: userAddress
