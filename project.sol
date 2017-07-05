@@ -149,9 +149,9 @@ function buyTokens(address tokenowner) payable public{
 
   function myTokenShare() constant returns(uint){
       uint tokenShareInPercent = 0;
-      uint backerPaidInAmount = backers[msg.sender];
+      uint tokensOfBacker = tokens_of_backers[msg.sender];
       assert(paid_in>0);
-      tokenShareInPercent = backerPaidInAmount * percentOfAllTokensDistributedToBackers / paid_in ;
+      tokenShareInPercent = tokensOfBacker * percentOfAllTokensDistributedToBackers / paid_in ;
       return tokenShareInPercent;
   }
   
