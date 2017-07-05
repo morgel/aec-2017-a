@@ -125,7 +125,7 @@ function gettokensoffered() constant returns(uint, uint){
 
 function buyTokens(address tokenowner) payable public{
     
-        assert(msg.value>=tokens_offered[tokenowner]);
+        assert(msg.value>=offered_price[tokenowner]);
         bool exists =false;
         for(uint i = 0; i < numberOfBackers; i++){
             if (indicesAddresses[i]== msg.sender)
