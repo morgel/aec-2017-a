@@ -78,15 +78,24 @@ function getmyTokens() constant returns(uint){
   }
   
 function getallTokenOwners() constant returns(address[], uint[]) {
-    address[]memory addresses  = new address[](numberOfBackers);
-    uint[]memory tokens  = new uint[](numberOfBackers);
+    uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
-            addresses[i] = indicesAddresses[i];
-            tokens[i] = tokens_of_backers[indicesAddresses[i]];
+        if (tokens_of_backers[indicesAddresses[i]]>0){
+            len += 1;
+        }      
+    }
+    address[]memory addresses = new address[](len);
+    uint[]memory tokens = new uint[](len);
+    uint counter = 0;
+    for(i = 0; i < numberOfBackers; i++){
+        if (tokens_of_backers[indicesAddresses[i]]>0){
+            addresses[counter] = indicesAddresses[i];
+            tokens[counter] = tokens_of_backers[indicesAddresses[i]];
+            counter += 1;
+        }
     }
     return (addresses,tokens);
 }
-
 
 function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
     address[]memory addresses  = new address[](numberOfBackers);
