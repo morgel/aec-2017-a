@@ -229,8 +229,8 @@ function buyTokens(address tokenowner) payable public{
       return numberOfBackers;
   }
 
-  function getMyPaidInAmount()constant public returns(uint){
-      return backers[msg.sender];
+  function getMyPaidInAmount(address backer) constant public returns(uint){
+      return backers[backer];
   }
 
   function getFundingGoal() constant public returns(uint){
