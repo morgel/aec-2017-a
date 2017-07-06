@@ -165,6 +165,24 @@ router.get('/profile/invested-projects', passport.authenticate('jwt', {session: 
         res.json(projectData);
 
     });
-});//End: route
+});
+
+/**
+ * Create a token offer for a given project.
+ */
+router.post('/offer-tokens', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+
+    Contract.offerTokens(req.user.address, req.body.projectAddress, req.body.amount, req.body.price, (error) => {
+
+        if (error) {
+            res.json({success: false, msg: 'Unable to fetch projects: ' + err});
+        } else {
+            res.status(201);
+            res.json({success: true, msg: 'Token offer successfully created'});
+        }
+
+    });
+
+});
 
 module.exports = router;
