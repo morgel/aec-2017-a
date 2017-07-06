@@ -66,7 +66,7 @@ contract Project{
             indicesAddresses[numberOfBackers] = msg.sender;
             numberOfBackers += 1;
         }
-
+    
       tokens_of_backers[msg.sender] += msg.value;
       emitted_tokens += msg.value;
       backers[msg.sender] += msg.value;
@@ -80,13 +80,13 @@ function getemittedtokens() constant returns(uint){
 function getmyTokens() constant returns(uint){
       return tokens_of_backers[msg.sender];
   }
-
+  
 function getallTokenOwners() constant returns(address[], uint[]) {
     uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_of_backers[indicesAddresses[i]]>0){
             len += 1;
-        }
+        }      
     }
     address[]memory addresses = new address[](len);
     uint[]memory tokens = new uint[](len);
@@ -106,7 +106,7 @@ function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_offered[indicesAddresses[i]]>0){
             len += 1;
-        }
+        }      
     }
     address[]memory addresses  = new address[](len);
     uint[]memory tokens  = new uint[](len);
@@ -118,15 +118,15 @@ function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
             tokens[counter] = tokens_offered[indicesAddresses[i]];
             price[counter] = offered_price[indicesAddresses[i]];
             counter += 1;
-        }
+        }   
     }
-
+    
     return (addresses,tokens,price);
-
-}
-
+    
+}    
+    
 function offermyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
-
+    
         if(tokennumber > tokens_of_backers[msg.sender]-tokens_offered[msg.sender])
         {throw;}
         else{
@@ -134,16 +134,16 @@ function offermyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
         offered_price[msg.sender]=tokenprice;
         }
         return (tokens_offered[msg.sender], offered_price[msg.sender]);
-
+    
 }
 
-function gettokensoffered() constant returns(uint, uint){
-    return (tokens_offered[msg.sender], offered_price[msg.sender]);
+function getTokensOffered(address backer) constant returns(uint, uint){
+    return (tokens_offered[backer], offered_price[backer]);
 }
 
 
 function buyTokens(address tokenowner) payable public{
-
+    
         assert(msg.value>=offered_price[tokenowner]);
         bool exists =false;
         for(uint i = 0; i < numberOfBackers; i++){
@@ -168,7 +168,7 @@ function buyTokens(address tokenowner) payable public{
       assert(emitted_tokens>0);
       tokenShareInPercent = tokens_of_backers[msg.sender] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
       return tokenShareInPercent;
-  }
+  }  
 
   function isFunded() constant public returns(bool){
   if(!isActive()){
@@ -184,8 +184,9 @@ function buyTokens(address tokenowner) payable public{
     return false;
   }
   }
-
+  
   function isActive() constant public returns(bool){
+      return true;
       if(now > fundingEnd){
           return false;
       }
@@ -219,7 +220,7 @@ function buyTokens(address tokenowner) payable public{
             backer.transfer(tokens_of_backers[backer]);
             tokens_of_backers[backer]=0;
         }
-
+        
     selfdestruct(owner); //should return 0 value
     }
   }

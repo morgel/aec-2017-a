@@ -93,6 +93,7 @@ router.get('/profile/investments', passport.authenticate('jwt', {session: false}
 
 /**
  * Get backed projects, which are successfuly funded + funding end date is already reached.
+ * furthermore if the user has already an open offer for the respective project.
  */
 router.get('/profile/funded-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     Project.getByBacker(req.user.id, (err, projects) => {
@@ -105,33 +106,29 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
             //Loop over full list of backed projects
             for (var i = 0; i < projects.length; i++) {
 
-                var project = projects[i];
+                var project = projects[i].toJSON();
 
                 //Check blockchain whether the project is successfully funded
-                Contract.isFunded(req.user.address, project.address, (isFunded) => {
+                if (Contract.isFunded(project.address)) {
 
-                    //Add project to return data
-                    if (isFunded) {
+                    // Check whether user currently has an open offer for the project
+                    // and get the amount
+                    var result = Contract.getTokensOffered(req.user.address, project.address);
+                    var offerAmount = result[0];
 
-                        //Check whether user currently has an open offer for the project
-                        //and get the amount
-                        Contract.getTokensOffered(req.user.address, project.address, (tokenAmount) => {
-                            if (tokenAmount > 0) {
-                                project.hasOffer = true;
-                                project.offeredTokenAmount = tokenAmount;
-                            } else {
-                                project.hasOffer = false;
-                                project.offeredTokenAmount = 0;
-                            }
-                        });
-
-                        Contract.getTokenShare(req.user.address, project.address, (tokenAmount) => {
-                            project.tokenHoldingAmount = tokenAmount;
-                        });
-
-                        projectData.projects.push(project);
+                    if (tokenAmount > 0) {
+                        project.hasOffer = true;
+                        project.offeredTokenAmount = tokenAmount;
+                    } else {
+                        project.hasOffer = false;
+                        project.offeredTokenAmount = 0;
                     }
-                });
+
+                    project.tokenHoldingAmount = Contract.getMyTokenShare(req.user.address, project.address);
+
+                    projectData.projects.push(project);
+                }
+
             }//End: for
 
             res.json(projectData);
@@ -143,41 +140,31 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
  * Get projects which the user has invested in and which are still in the funding period.
  */
 router.get('/profile/invested-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+
     Project.getByBacker(req.user.id, (err, projects) => {
+
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
-        } else {
-
-            console.log("*** User: " + req.user);
-
-            var projectData = {"projects": []};
-
-            //Loop over full list of backed projects
-            for (var i = 0; i < projects.length; i++) {
-
-                var project = projects[i].toJSON();
-
-                //Check blockchain whether the project is successfully funded
-                Contract.isActive(req.user.address, project.address, (Error, isActive) => {
-
-                    // console.log("***isActive1:" + isActive);
-                    // console.log("***Error1:" + Error);
-                    // console.log("***isActive:" + JSON.stringify(isActive));
-                    // console.log("***Error:" + JSON.stringify(Error));
-
-                    if (isActive) {
-                        project.isActive = isActive;
-                        console.log("***Project: " + JSON.stringify(project));
-                        projectData.projects.push(project);
-                    }
-                });
-
-            }//End: for
-            console.log("***ProjectData: " + JSON.stringify(projectData));
-            res.json(projectData);
-
+            return;
         }
+
+        var projectData = {"projects": []};
+
+        //Loop over full list of backed projects
+        for (var i = 0; i < projects.length; i++) {
+
+            var project = projects[i].toJSON();
+
+            //Check blockchain whether the project is still in funding period
+            if (Contract.isActive(project.address)) {
+                project.isActive = true;
+                projectData.projects.push(project);
+            }
+        }
+
+        res.json(projectData);
+
     });
-});
+});//End: route
 
 module.exports = router;
