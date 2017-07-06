@@ -1,0 +1,16 @@
+<h2 md-dialog-title>
+  Invest in project "{{project.name}}"
+</h2>
+<md-dialog-content>
+  <md-input-container class="full-width">
+    <input mdInput placeholder="Amount" value="0" [(ngModel)]="amount" name="amount">
+  </md-input-container>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>
+    Cancel
+  </button>
+  <button md-button [md-dialog-close]="true" (click)="makeInvestment()">
+    Make investement
+  </button>
+</md-dialog-actions>

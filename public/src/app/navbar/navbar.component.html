@@ -1,0 +1,84 @@
+<md-toolbar color="primary">
+
+  <div class="toolbar-container">
+    <div class="toolbar-container-item">
+      <div class="title-left" *ngIf="authService.loggedIn()">
+        <span routerLink="./dashboard" style="cursor:pointer">berlinfund</span>
+      </div>
+    </div>
+    <div class="toolbar-container-item">
+      <div class="title-middle" *ngIf="!authService.loggedIn()">
+        <span routerLink="./" style="cursor:pointer">berlinfund</span>
+      </div>
+    </div>
+    <div class="toolbar-container-item">
+
+      <nav>
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./dashboard">
+          Dashboard
+        </button>
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./projects">
+          Create Project
+        </button>
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./investments">
+          Make Investment
+        </button>
+        <button class="hidden-xs hidden-sm" *ngIf="authService.loggedIn()" md-raised-button color="accent"
+                routerLink="./marketplace">
+          Marketplace
+        </button>
+        <button class="hidden-xs hidden-sm" *ngIf="!authService.loggedIn()" md-button routerLink="./login">
+          Login
+        </button>
+        <button class="hidden-xs hidden-sm" *ngIf="!authService.loggedIn()" md-raised-button color="accent">
+          Signup
+        </button>
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #menu="mdMenu">
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./dashboard">
+            <span>
+              Dashboard
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./projects">
+            <span>
+              Create Project
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./investments">
+            <span>
+              Make Investment
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="authService.loggedIn()" md-menu-item routerLink="./marketplace">
+            <span>
+              Marketplace
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item routerLink="./login">
+            <span>
+              Login
+            </span>
+          </button>
+          <button class="hidden-md hidden-lg" *ngIf="!authService.loggedIn()" md-menu-item>
+            <span>
+              Signup
+            </span>
+          </button>
+          <button *ngIf="authService.loggedIn()" md-menu-item (click)="onLogoutClick()">
+            <span>Logout</span>
+          </button>
+          <button md-menu-item>
+            <span>Help</span>
+          </button>
+        </md-menu>
+      </nav>
+    </div>
+
+  </div>
+</md-toolbar>

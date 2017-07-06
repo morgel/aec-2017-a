@@ -1,0 +1,14 @@
+<h2 md-dialog-title>
+  Withdraw funding for project "{{project.name}}"
+</h2>
+<md-dialog-content>
+  Are you sure you want to withdraw your fundings for project "{{project.name}}"?
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>
+    Cancel
+  </button>
+  <button md-button class="pull-right" [md-dialog-close]="true">
+    Yes
+  </button>
+</md-dialog-actions>
