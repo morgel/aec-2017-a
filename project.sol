@@ -163,10 +163,10 @@ function buyTokens(address tokenowner) payable public{
         offered_price[tokenowner]=0;
 }
 
-  function myTokenShare() constant returns(uint){
+  function myTokenShare(address backer) constant returns(uint){
       uint tokenShareInPercent = 0;
       assert(emitted_tokens>0);
-      tokenShareInPercent = tokens_of_backers[msg.sender] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
+      tokenShareInPercent = tokens_of_backers[backer] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
       return tokenShareInPercent;
   }  
 
