@@ -73,15 +73,15 @@ contract Project{
       paid_in += msg.value;
 }
 
-function getemittedtokens() constant returns(uint){
+function getEmittedTokens() constant returns(uint){
       return emitted_tokens;
 }
 
-function getmyTokens() constant returns(uint){
+function getMyTokens() constant returns(uint){
       return tokens_of_backers[msg.sender];
   }
   
-function getallTokenOwners() constant returns(address[], uint[]) {
+function getAllTokenOwners() constant returns(address[], uint[]) {
     uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_of_backers[indicesAddresses[i]]>0){
@@ -101,7 +101,7 @@ function getallTokenOwners() constant returns(address[], uint[]) {
     return (addresses,tokens);
 }
 
-function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
+function getAllOfferedTokens() constant returns(address[], uint[],uint[]) {
     uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_offered[indicesAddresses[i]]>0){
@@ -125,7 +125,7 @@ function getallOfferedTokens() constant returns(address[], uint[],uint[]) {
     
 }    
     
-function offermyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
+function offerMyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
     
         if(tokennumber > tokens_of_backers[msg.sender]-tokens_offered[msg.sender])
         {throw;}
