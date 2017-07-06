@@ -24,7 +24,9 @@ export class ProjectsComponent implements OnInit {
     const data = {
       'name': this.name,
       'description': this.description,
-      'fundingGoal': this.goal
+      'fundingGoal': this.goal,
+      'fundingEnd': this.date,
+      'totalShare': this.share
     }
     this.projectsService.createProject(data)
       .subscribe(

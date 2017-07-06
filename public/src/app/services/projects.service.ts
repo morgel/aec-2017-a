@@ -38,7 +38,16 @@ export class ProjectsService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile/investments', {headers: headers})
+    return this.http.get('http://localhost:3000/users/profile/funded-projects', {headers: headers})
+      .map(res => res.json());
+  }
+
+  getInvestedProjects() {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/users/profile/invested-projects', {headers: headers})
       .map(res => res.json());
   }
 

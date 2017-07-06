@@ -13,12 +13,23 @@ export class DashboardComponent implements OnInit {
   getData: String;
   ownProjects: any;
   fundedProjects: any;
+  investedProjects: any;
   ownProjectsLoaded = false;
   investedProjectsLoaded = false;
+  fundedProjectsLoaded = false;
+  currentDate = new Date();
 
   constructor(private router: Router,
               private projectsService: ProjectsService,
               public dialog: MdDialog) {
+  }
+
+  isFunded(fundingEnd) {
+    if((new Date(fundingEnd)).getTime() > this.currentDate.getTime()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   openCancelProjectDialog(project) {
@@ -58,7 +69,17 @@ export class DashboardComponent implements OnInit {
     this.projectsService.getFundedProjects()
       .subscribe(
         data => {
-          this.fundedProjects = data;
+          this.fundedProjects = data.projects;
+          this.fundedProjectsLoaded = true;
+        }
+      );
+  }
+
+  getInvestedProjects() {
+    this.projectsService.getInvestedProjects()
+      .subscribe(
+        data => {
+          this.investedProjects = data.projects;
           this.investedProjectsLoaded = true;
         }
       );
@@ -71,6 +92,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getOwnProjects();
     this.getFundedProjects();
+    this.getInvestedProjects();
   }
 
 
