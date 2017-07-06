@@ -77,8 +77,8 @@ function getEmittedTokens() constant returns(uint){
       return emitted_tokens;
 }
 
-function getMyTokens() constant returns(uint){
-      return tokens_of_backers[msg.sender];
+function getMyTokens(string addressOfTokenholder) constant returns(uint){
+      return tokens_of_backers[addressOfTokenholder];
   }
   
 function getAllTokenOwners() constant returns(address[], uint[]) {
