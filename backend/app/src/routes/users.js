@@ -114,7 +114,7 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
                     // Check whether user currently has an open offer for the project
                     // and get the amount
                     var result = Contract.getTokensOffered(req.user.address, project.address);
-                    var offerAmount = result[0];
+                    var tokenAmount = result[0];
 
                     if (offerAmount > 0) {
                         project.hasOffer = true;
@@ -181,9 +181,23 @@ router.post('/offer-tokens', passport.authenticate('jwt', {session: false}), (re
             res.status(201);
             res.json({success: true, msg: 'Token offer successfully created'});
         }
-
     });
-
 });
+
+router.post('/buy-Tokens', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+       Contract.buyTokens(req.user.address, project.address, req.body.tokenOwnerAddress, (error) => {
+         if (error) {
+             res.json({success: false, msg: 'Unable to buy token: ' + error});
+         } else {
+             res.status(201);
+             res.json({success: true, msg: 'Token successfully bought'});
+         }
+     });
+   });
+
+
+
+
+
 
 module.exports = router;

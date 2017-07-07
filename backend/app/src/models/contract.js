@@ -75,6 +75,17 @@ module.exports.getAllOfferedTokens = function(contractAddress) {
     return contract.at(contractAddress).getAllOfferedTokens();
 };
 
+
+module.exports.buyTokens = function(userAddress, contractAddress, tokenOwnerAddress, callback) {
+    contract.at(contractAddress).buyTokens.sendTransaction({
+            from: userAddress,
+            tokenOwnerAddress: tokenOwnerAddress
+        },
+        callback
+    );
+};
+
+
 module.exports.getFundingEnd = function(contractAddress) {
     return contract.at(contractAddress).getFundingEnd.call();
 };
