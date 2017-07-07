@@ -9,30 +9,33 @@
       <md-card *ngIf="!isCreated">
         <h4>Project name</h4>
         <md-input-container class="full-width">
-          <input mdInput type="text" placeholder="Name" [(ngModel)]="name" name="name">
+          <input mdInput type="text" placeholder="Name" [(ngModel)]="name" name="name" required [formControl]="complexForm.controls['name']">
         </md-input-container>
         <h4>Project description</h4>
         <md-input-container class="full-width">
-          <input mdInput type="text" placeholder="Description" [(ngModel)]="description" name="description">
+          <input mdInput type="text" placeholder="Description" [(ngModel)]="description" name="description" required [formControl]="complexForm.controls['description']">
         </md-input-container>
         <h4>Funding goal</h4>
         <md-input-container class="full-width">
-          <input mdInput type="text" placeholder="Goal" [(ngModel)]="goal" name="goal">
+          <input mdInput type="text" placeholder="Goal" [(ngModel)]="goal" name="goal" required [formControl]="complexForm.controls['goal']">
         </md-input-container>
         <h4>Funding end date</h4>
-        <md-input-container class="full-width">
-          <input mdInput  [mdDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date">
+        <md-input-container class="">
+          <input mdInput disabled [mdDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date" name="date" required [formControl]="complexForm.controls['date1']">
           <button mdSuffix [mdDatepickerToggle]="picker"></button>
         </md-input-container>
         <md-datepicker #picker></md-datepicker>
         <h4>Total share for backers</h4>
         <md-input-container class="full-width">
-          <input mdInput type="text" placeholder="Share" [(ngModel)]="share" name="share">
+          <input mdInput type="text" placeholder="Share" [(ngModel)]="share" name="share" required [formControl]="complexForm.controls['share']">
         </md-input-container>
-        <button md-raised-button class="full-width" color="primary" (click)="createProject()">Create Project</button>
+        <button md-raised-button class="full-width" color="primary" (click)="createProject()" [disabled]="!complexForm.valid">Create Project</button>
       </md-card>
       <md-card *ngIf="isCreated">
         Project created!
+      </md-card>
+      <md-card *ngIf="isError">
+        Date is in the past.
       </md-card>
     </div>
   </div>

@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import {MdButtonModule, MdCheckboxModule, MdToolbarModule, MdCardModule, MdInputModule,MdListModule,MdIconModule} from '@angular/material';
 import {MdDialogModule, MdMenuModule, MdSelectModule, MdProgressBarModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -22,8 +21,10 @@ import {ProjectsService} from './services/projects.service';
 
 
 import {FlashMessagesModule } from 'angular2-flash-messages';
-import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceComponent ,BuyTokenDialog} from './marketplace/marketplace.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { CountdownComponent } from './shared/countdown/countdown.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -39,7 +40,9 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     CancelProjectDialog,
     WithdrawFundingDialog,
     MarketplaceComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    CountdownComponent,
+    BuyTokenDialog
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
     MdSelectModule,
     MdProgressBarModule,
     MdDatepickerModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
@@ -70,7 +74,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
   entryComponents: [
     InvestmentsDialog,
     CancelProjectDialog,
-    WithdrawFundingDialog
+    WithdrawFundingDialog,
+    BuyTokenDialog
 ]
 })
 export class AppModule { }
