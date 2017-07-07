@@ -38,6 +38,10 @@ contract Project{
   mapping(address => uint) offered_price;
   //uint nominal_token_value = 1;
   uint emitted_tokens;
+  
+  // this counter is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp
+  // otherwise now is not updated
+  uint eventCounterForTesting = 0;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
     // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
@@ -256,5 +260,11 @@ function buyTokens(address tokenowner) payable public{
   }
   function getFundingEnd() constant public returns(uint){
     return fundingEnd;
+  }
+  
+  // this function is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp
+  // otherwise now is not updated
+  function incrementEventCounter() {
+    eventCounterForTesting += 1;
   }
 }
