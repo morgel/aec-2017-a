@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
       'name': ['', Validators.required],
       'description': [null, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
       'goal': [null, Validators.compose([Validators.required, Validators.pattern("[0-9]+")])],
-      'date1': [null, Validators.compose([Validators.required, Validators.call(this.date1)])],
+      //'date1': [null, Validators.compose([Validators.required, Validators.call(this.date1)])],
       'share': [null, Validators.compose([Validators.required, Validators.pattern("[0-9]+"), Validators.min(1), Validators.max(100)])]
     });
   }
@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
       'name': this.name,
       'description': this.description,
       'fundingGoal': this.goal,
-      'fundingEnd': this.date,
+      // 'fundingEnd': this.date,
       'totalShare': this.share
     }
     this.projectsService.createProject(data)
