@@ -30,6 +30,11 @@ module.exports.getUserByUsername = function (username, callback) {
     User.findOne(query, callback);
 }
 
+module.exports.getUserByAddress = function (address, callback) {
+    const query = {address: address}
+    User.findOne(query, callback);
+}
+
 
 module.exports.addUser = function (newUser, callback) {
     bcrypt.genSalt(10, (err, salt) => {

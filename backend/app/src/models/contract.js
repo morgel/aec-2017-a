@@ -345,6 +345,10 @@ module.exports.offerTokens = function(userAddress, contractAddress, amount, pric
     );
 };
 
+module.exports.getAllOfferedTokens = function(contractAddress) {
+    return contract.at(contractAddress).getAllOfferedTokens();
+};
+
 /*
  function (e, contract) {
  console.log(e, contract);

@@ -4,6 +4,7 @@ const passport = require('passport');
 
 const Project = require('../models/project');
 const Contract = require('../models/contract');
+const User = require('../models/user');
 
 // get all Projects
 router.get('/', (req, res, next) => {
@@ -116,6 +117,89 @@ router.delete('/:project', passport.authenticate('jwt', {session: false}), (req,
                 }
             });
         }
+    });
+});
+
+/**
+ * Get all token offer for all projects listed in the DB.
+ */
+router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+
+    var data = { projects: [] };
+    var projectOffers = [];
+
+    //This function is necessary deal with asynchronicity and will be called later
+    var _createOfferJson = function(index, resolve, reject) {
+
+        var ownerAddress = projectOffers[index.i][0][index.j];
+        var amount = projectOffers[index.i][1][index.j];
+        var price = projectOffers[index.i][2][index.j];
+
+        //Read user and push offer as json into respective array of current project
+        User.getUserByAddress(ownerAddress, (errUser, user) => {
+
+            if (errUser || user === null) {
+                console.log("Error");
+                return;
+            }
+
+            console.log("***User: " + user);
+            console.log("Amount/price"+amount+" / "+ price);
+
+            var offer = {
+                owner: user,
+                amount: amount,
+                price: price
+            };
+
+            console.log("**off:"+ JSON.stringify(offer));
+            console.log("*** i:"+index.i+", j:"+index.j);
+
+            data.projects[index.i].offers.push(offer);
+            console.log("**data:"+ JSON.stringify(data));
+
+            resolve();
+        });
+
+    };
+
+    var promises = [];
+
+    Project.getAll((err, projects) => {
+
+        if (err) {
+            res.json({success: false, msg: 'Unable to fetch projects'});
+            return;
+        }
+
+        //Loop over all projects, to check blockchain for existing offers
+        for (var i = 0; i < projects.length; i++) {
+
+            var project = projects[i].toJSON();
+            project.offers = [];
+
+            //Push project json incl. all offers to the return json object
+            data.projects.push(project);
+
+            //projectOffers[i][j][0] => ownerAddress, projectOffers[i][j][1] => tokenAmount, projectOffers[i][j] => price
+            projectOffers[i] = Contract.getAllOfferedTokens(project.address);
+
+            console.log("*** length i: "+projectOffers[i][0].length);
+            console.log("*** length i: "+projectOffers[i][0]);
+
+            //Loop over token offers of current project
+            for (var j = 0; j < projectOffers[i][0].length; j++) {
+
+                promises.push(new Promise(function(resolve, reject) {
+                    _createOfferJson({i:i, j:j}, resolve, reject);
+                }));
+            }
+        }
+
+        Promise.all(promises).then(()=>{
+            res.json(data);
+        });
+
     });
 });
 
