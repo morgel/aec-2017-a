@@ -1,0 +1,6 @@
+.marketplace-container {
+  background-image: url("../../assets/marketplace.png");
+  background-position: center center;
+  background-size: cover;
+  height: 40vh;
+}
