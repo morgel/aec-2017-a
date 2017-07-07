@@ -24,7 +24,6 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
 import { MarketplaceComponent ,BuyTokenDialog} from './marketplace/marketplace.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { CountdownComponent } from './shared/countdown/countdown.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

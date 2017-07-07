@@ -126,7 +126,7 @@ function getAllOfferedTokens() constant returns(address[], uint[],uint[]) {
 }    
     
 function offerMyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
-    
+    assert(isFunded());
         if(tokennumber > tokens_of_backers[msg.sender]-tokens_offered[msg.sender])
         {throw;}
         else{
@@ -143,7 +143,7 @@ function getTokensOffered(address backer) constant returns(uint, uint){
 
 
 function buyTokens(address tokenowner) payable public{
-    
+    assert(isFunded());
         assert(msg.value>=offered_price[tokenowner]);
         bool exists =false;
         for(uint i = 0; i < numberOfBackers; i++){
