@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
       'name': this.name,
       'description': this.description,
       'fundingGoal': this.goal,
-      // 'fundingEnd': this.date,
+      'fundingEnd': new Date(),
       'totalShare': this.share
     }
     this.projectsService.createProject(data)

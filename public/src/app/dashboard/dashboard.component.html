@@ -28,7 +28,7 @@
               [value]="(project.fundingStatus/project.fundingGoal*100).toFixed(2)">
             </md-progress-bar>
             <h5>Remaining Funding Time:</h5>
-            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="project.fundingEnd"></countdown>
+            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="getCountdown(project.fundingEnd)"></countdown>
             <div *ngIf="isFunded(project.fundingEnd)">Funding period ended</div>
           </md-card-content>
           <md-card-actions>
@@ -61,7 +61,8 @@
               [value]="(project.fundingStatus/project.fundingGoal*100).toFixed(2)">
             </md-progress-bar>
             <h5>Remaining Funding Time:</h5>
-            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="project.fundingEnd"></countdown>
+            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="getCountdown(project.fundingEnd)"
+></countdown>
             <div *ngIf="isFunded(project.fundingEnd)">Funding period ended</div>
           </md-card-content>
           <md-card-actions>
@@ -94,7 +95,7 @@
               [value]="(project.fundingStatus/project.fundingGoal*100).toFixed(2)">
             </md-progress-bar>
             <h5>Remaining Funding Time:</h5>
-            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="project.fundingEnd"></countdown>
+            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="getCountdown(project.fundingEnd)"></countdown>
             <div *ngIf="isFunded(project.fundingEnd)">Funding period ended</div>
           </md-card-content>
           <md-card-actions>

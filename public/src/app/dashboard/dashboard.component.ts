@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   investedProjectsLoaded = false;
   fundedProjectsLoaded = false;
   currentDate = new Date();
+  period = 2592000;
 
   constructor(private router: Router,
               private projectsService: ProjectsService,
@@ -25,11 +26,17 @@ export class DashboardComponent implements OnInit {
   }
 
   isFunded(fundingEnd) {
-    if((new Date(fundingEnd)).getTime() > this.currentDate.getTime()) {
+    const fundingEndTime = new Date(new Date(fundingEnd).getTime() + this.period);
+
+    if((new Date(fundingEnd)).getTime() > fundingEndTime.getTime()) {
       return false;
     } else {
       return true;
     }
+  }
+
+  getCountdown(date) {
+    return date.getTime() + this.period;
   }
 
   openCancelProjectDialog(project) {

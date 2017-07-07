@@ -105,9 +105,9 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
 
             //Loop over full list of backed projects
             for (var i = 0; i < projects.length; i++) {
-
                 var project = projects[i].toJSON();
-
+                console.log(Contract.getFundingEnd(project.address));
+                console.log((new Date()).getTime());
                 //Check blockchain whether the project is successfully funded
                 if (Contract.isFunded(project.address)) {
 
@@ -116,23 +116,24 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
                     var result = Contract.getTokensOffered(req.user.address, project.address);
                     var offerAmount = result[0];
 
-                    if (tokenAmount > 0) {
+                    if (offerAmount > 0) {
                         project.hasOffer = true;
-                        project.offeredTokenAmount = tokenAmount;
+                        project.offeredTokenAmount = offerAmount;
                     } else {
                         project.hasOffer = false;
                         project.offeredTokenAmount = 0;
                     }
 
-                    project.tokenHoldingAmount = Contract.getMyTokenShare(req.user.address, project.address);
+                    project.tokenHoldingAmount = Contract.getTokenShare(req.user.address, project.address);
 
                     projectData.projects.push(project);
                 }
 
             }//End: for
-
+            console.log(projectData);
             res.json(projectData);
         }
+
     });
 });
 
