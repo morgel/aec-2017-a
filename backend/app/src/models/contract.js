@@ -349,6 +349,17 @@ module.exports.getAllOfferedTokens = function(contractAddress) {
     return contract.at(contractAddress).getAllOfferedTokens();
 };
 
+
+module.exports.buyTokens = function(userAddress, contractAddress, tokenOwnerAddress, callback) {
+    contract.at(contractAddress).buyTokens.sendTransaction({
+            from: userAddress,
+            tokenOwnerAddress: tokenOwnerAddress
+        },
+        callback
+    );
+};
+
+
 /*
  function (e, contract) {
  console.log(e, contract);

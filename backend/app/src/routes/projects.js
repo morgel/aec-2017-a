@@ -200,6 +200,39 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
 });
 
 
+
+router.get('/available-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+
+    var data = { projects: [] };
+
+    Project.getAll((err, projects) => {
+        if (err) {
+            res.json({success: false, msg: 'Unable to fetch projects'});
+        } else {
+
+
+          for (var i = 0; i < projects.length; i++) {
+
+            var project = projects[i].toJSON();
+
+            if (!Contract.isActive(project.address)) {
+                continue;
+            }
+
+            data.projects.push(project);
+
+          }
+
+            res.json(data);
+        }
+    });
+
+
+
+});
+
+
+
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.send({user: req.user});
