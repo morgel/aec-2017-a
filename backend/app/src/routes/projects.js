@@ -128,7 +128,7 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
     var data = { projects: [] };
     var projectOffers = [];
 
-    //This function is necessary deal with asynchronicity and will be called later
+    //This function is necessary to deal with asynchronicity and will be called later
     var _createOfferJson = function(index, resolve, reject) {
 
         var ownerAddress = projectOffers[index.i][0][index.j];
@@ -184,12 +184,8 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
             //projectOffers[i][j][0] => ownerAddress, projectOffers[i][j][1] => tokenAmount, projectOffers[i][j] => price
             projectOffers[i] = Contract.getAllOfferedTokens(project.address);
 
-            console.log("*** length i: "+projectOffers[i][0].length);
-            console.log("*** length i: "+projectOffers[i][0]);
-
             //Loop over token offers of current project
             for (var j = 0; j < projectOffers[i][0].length; j++) {
-
                 promises.push(new Promise(function(resolve, reject) {
                     _createOfferJson({i:i, j:j}, resolve, reject);
                 }));
