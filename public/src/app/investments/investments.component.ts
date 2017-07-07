@@ -11,6 +11,7 @@ import {MdDialog} from '@angular/material';
 export class InvestmentsComponent implements OnInit {
   allProjects: any;
   allProjectsLoaded = false;
+  currentDate = new Date();
 
   constructor(private projectsService: ProjectsService,
               public dialog: MdDialog) {
@@ -25,6 +26,14 @@ export class InvestmentsComponent implements OnInit {
           console.log(data);
         }
       );
+  }
+
+  isFunded(fundingEnd) {
+    if((new Date(fundingEnd)).getTime() > this.currentDate.getTime()) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   openDialog(project) {
