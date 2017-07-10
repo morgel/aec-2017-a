@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
+var schedule = require('node-schedule');
 const config = require('./config/database');
+const sync = require('./config/sync');
 
 // Connect To Database
 mongoose.connect(config.database);
@@ -40,6 +42,7 @@ app.use(passport.session());
 
 require('./config/passport')(passport);
 
+
 // set routes
 const users = require('./routes/users');
 const projects = require('./routes/projects');
@@ -47,10 +50,14 @@ app.use('/users', users);
 app.use('/projects', projects);
 
 
-
-var startup = function(){
+var startup = function () {
     // create some initial user for testing
     require('./config/startup')();
+
+    // sync with blockchain every 30s
+    var rule = new schedule.RecurrenceRule();
+    rule.second = 30;
+    schedule.scheduleJob(rule, sync.syncAll);
 
 // Index Route
     app.get('/', (req, res) => {

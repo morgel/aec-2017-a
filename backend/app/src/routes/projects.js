@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const sync = require('../config/sync');
 
 const Project = require('../models/project');
 const Contract = require('../models/contract');
 const User = require('../models/user');
+
 
 // get all Projects
 router.get('/', (req, res, next) => {
@@ -22,7 +24,7 @@ router.get('/', (req, res, next) => {
 // Create a project (user needs to be logged in)
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
-    Contract.create(req.user.address, req.body.fundingGoal, (err, contract)=> {
+    Contract.create(req.user.address, req.body.fundingGoal, req.body.totalShare, (err, contract) => {
         if (err) {
             res.json({success: false, msg: 'Failed to create contract: ' + err});
         }
@@ -35,12 +37,14 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next
                     creator: req.user.id,
                     address: contract.address,
                     fundingEnd: req.body.fundingEnd,
-                    totalShare: req.body.totalShare
+                    totalShare: req.body.totalShare,
+                    isActive: true,
+                    isFunded: false
                 });
 
                 Project.add(project, (err, project) => {
                     if (err) {
-                        // TODO: Rollback on blockchain
+                        // TODO: retry updating the database to get it in sync with blockchain
                         res.json({success: false, msg: 'Failed to create project: ' + err});
                     } else {
                         res.status(201);
@@ -74,7 +78,11 @@ router.post('/:project/invest', passport.authenticate('jwt', {session: false}), 
                         if (err) {
                             // TODO: retry updating the database to get it in sync with blockchain
                         } else {
-                            res.json({success: true, msg: 'Investment successful'});
+                            // sync with blockchain to get current fundingStatus, isActive and isFunded
+                            sync.sync(project).then(
+                                result => res.json({success: true, msg: 'Investment successful'}),
+                                error => res.json({success: true, msg: 'Investment successful, sync failed'})
+                            )
                         }
                     });
                 }
@@ -86,7 +94,7 @@ router.post('/:project/invest', passport.authenticate('jwt', {session: false}), 
     });
 });
 
-// Invest in a projects (user needs to be logged in)
+// Delete a project (user needs to be logged in)
 router.delete('/:project', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
     var projectId = req.params.project;
@@ -97,8 +105,6 @@ router.delete('/:project', passport.authenticate('jwt', {session: false}), (req,
             res.json({success: false, msg: 'Failed to load project: ' + err});
         }
 
-        console.log(project.creator);
-        console.log(req.user.id);
 
         if (project.creator.toString() !== req.user.id.toString()) {
             res.status(401);
@@ -125,11 +131,11 @@ router.delete('/:project', passport.authenticate('jwt', {session: false}), (req,
  */
 router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
-    var data = { projects: [] };
+    var data = {projects: []};
     var projectOffers = [];
 
     //This function is necessary to deal with asynchronicity and will be called later
-    var _createOfferJson = function(index, resolve, reject) {
+    var _createOfferJson = function (index, resolve, reject) {
 
         var ownerAddress = projectOffers[index.i][0][index.j];
         var amount = projectOffers[index.i][1][index.j];
@@ -144,7 +150,7 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
             }
 
             console.log("***User: " + user);
-            console.log("Amount/price"+amount+" / "+ price);
+            console.log("Amount/price" + amount + " / " + price);
 
             var offer = {
                 owner: user,
@@ -152,11 +158,11 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
                 price: price
             };
 
-            console.log("**off:"+ JSON.stringify(offer));
-            console.log("*** i:"+index.i+", j:"+index.j);
+            console.log("**off:" + JSON.stringify(offer));
+            console.log("*** i:" + index.i + ", j:" + index.j);
 
             data.projects[index.i].offers.push(offer);
-            console.log("**data:"+ JSON.stringify(data));
+            console.log("**data:" + JSON.stringify(data));
 
             resolve();
         });
@@ -186,52 +192,44 @@ router.get('/token-offers', passport.authenticate('jwt', {session: false}), (req
 
             //Loop over token offers of current project
             for (var j = 0; j < projectOffers[i][0].length; j++) {
-                promises.push(new Promise(function(resolve, reject) {
-                    _createOfferJson({i:i, j:j}, resolve, reject);
+                promises.push(new Promise(function (resolve, reject) {
+                    _createOfferJson({i: i, j: j}, resolve, reject);
                 }));
             }
         }
 
-        Promise.all(promises).then(()=>{
+        Promise.all(promises).then(() => {
             res.json(data);
         });
 
     });
 });
 
+// get active projects
+router.get('/active', (req, res, next) => {
 
-
-router.get('/available-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-
-    var data = { projects: [] };
-
-    Project.getAll((err, projects) => {
+    Project.getActive((err, projects) => {
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects'});
         } else {
-
-
-          for (var i = 0; i < projects.length; i++) {
-
-            var project = projects[i].toJSON();
-
-            if (!Contract.isActive(project.address)) {
-                continue;
-            }
-
-            data.projects.push(project);
-
-          }
-
-            res.json(data);
+            res.json(projects);
         }
     });
 
-
-
 });
 
+// get funded projects
+router.get('/funded', (req, res, next) => {
 
+    Project.getFunded((err, projects) => {
+        if (err) {
+            res.json({success: false, msg: 'Unable to fetch projects'});
+        } else {
+            res.json(projects);
+        }
+    });
+
+});
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {

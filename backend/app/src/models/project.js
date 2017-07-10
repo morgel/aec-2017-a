@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Contract = require('../models/contract');
 
 // Project Schema
 const ProjectSchema = mongoose.Schema({
@@ -15,6 +16,14 @@ const ProjectSchema = mongoose.Schema({
     },
     fundingStatus: {
         type: Number,
+        required: true
+    },
+    isActive: {
+        type: Boolean,
+        required: true
+    },
+    isFunded: {
+        type: Boolean,
         required: true
     },
     fundingEnd: {
@@ -49,6 +58,14 @@ module.exports.getAll = function (callback) {
     Model.find(callback);
 }
 
+module.exports.getActive = function (callback) {
+    Model.find({isActive: true}, callback);
+}
+
+module.exports.getFunded = function (callback) {
+    Model.find({isFunded: true}, callback);
+}
+
 module.exports.getByCreator = function (creatorId, callback) {
     Model.find({creator: creatorId}, callback);
 }
@@ -59,22 +76,22 @@ module.exports.getByBacker = function (backerId, callback) {
 
 module.exports.invest = function (project, user, amount, callback) {
 
-    // TODO: invest in blockchain
-
     project.backers.push({
         user: user.id,
         amount: amount
-    })
-
-    project.fundingStatus = project.fundingStatus + amount;
+    });
 
     project.save(callback);
 
 }
 
-
 module.exports.add = function (project, callback) {
-
     project.fundingStatus = 0;
     project.save(callback);
+}
+
+
+// deletes all projects
+module.exports.clear = function (callback) {
+    Model.collection.drop(callback)
 }
