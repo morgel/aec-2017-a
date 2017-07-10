@@ -1,11 +1,11 @@
 FROM node:7.1-slim
 
 # Create app directory
-RUN mkdir -p /frontend/src
+RUN mkdir -p /frontend
 WORKDIR /frontend
 
 # Install app dependencies
-ADD package.json /frontend/
+COPY package.json /frontend
 RUN npm install
 
 # Add app source
