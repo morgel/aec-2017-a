@@ -21,7 +21,7 @@ import {ProjectsService} from './services/projects.service';
 
 
 import {FlashMessagesModule } from 'angular2-flash-messages';
-import { MarketplaceComponent ,BuyTokenDialog} from './marketplace/marketplace.component';
+import { MarketplaceComponent ,BuyTokensDialog, OfferTokensDialog} from './marketplace/marketplace.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { CountdownComponent } from './shared/countdown/countdown.component';
 
@@ -41,7 +41,8 @@ import { CountdownComponent } from './shared/countdown/countdown.component';
     MarketplaceComponent,
     ProjectDetailComponent,
     CountdownComponent,
-    BuyTokenDialog
+    BuyTokensDialog,
+    OfferTokensDialog
   ],
   imports: [
     BrowserModule,
@@ -74,7 +75,8 @@ import { CountdownComponent } from './shared/countdown/countdown.component';
     InvestmentsDialog,
     CancelProjectDialog,
     WithdrawFundingDialog,
-    BuyTokenDialog
+    BuyTokensDialog,
+    OfferTokensDialog
 ]
 })
 export class AppModule { }

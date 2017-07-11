@@ -116,9 +116,9 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
                     var result = Contract.getTokensOffered(req.user.address, project.address);
                     var tokenAmount = result[0];
 
-                    if (offerAmount > 0) {
+                    if (tokenAmount > 0) {
                         project.hasOffer = true;
-                        project.offeredTokenAmount = offerAmount;
+                        project.offeredTokenAmount = tokenAmount;
                     } else {
                         project.hasOffer = false;
                         project.offeredTokenAmount = 0;
@@ -185,7 +185,7 @@ router.post('/offer-tokens', passport.authenticate('jwt', {session: false}), (re
 });
 
 router.post('/buy-Tokens', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-       Contract.buyTokens(req.user.address, project.address, req.body.tokenOwnerAddress, (error) => {
+       Contract.buyTokens(req.user.address, req.body.projectAddress, req.body.tokenOwnerAddress, (error) => {
          if (error) {
              res.json({success: false, msg: 'Unable to buy token: ' + error});
          } else {

@@ -4,43 +4,24 @@
   <div class="img-container marketplace-container vertical-middle-align">
   </div>
   <div class="content-container">
-    <h1>Marketplace</h1>
     <div class="row projects-container">
+      <h1>Marketplace</h1>
       <h3>Token Offers</h3>
-      <div *ngFor="let offer of offers" class="col-xs-12 col-sm-4 col-md-3 col-lg-3 project-card">
-        <md-card>
-          <md-card-header>
-            <md-card-title>
-              <h4>Token Offer</h4>
-            </md-card-title>
-          </md-card-header>
-          <md-card-content>
-            <h5>For Project:</h5>
-            <h5>Seller:</h5>
-            <h5>Amount:</h5>
-            <h5>Price:</h5>
-          </md-card-content>
-          <md-card-actions>
-            <button md-button>Details</button>
-            <button md-raised-button color="primary" class="pull-right" (click)="openDialog(offer)">Buy</button>
-          </md-card-actions>
-        </md-card>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button md-raised-button color="primary" class="pull-right" (click)="openOfferTokensDialog()">Offer Tokens</button>
       </div>
-    </div>
-    <div class="row projects-container">
-      <h3>My Offers</h3>
-      <div *ngFor="let offer of offers" class="col-xs-12 col-sm-4 col-md-3 col-lg-3 project-card">
-        <md-card>
+      <div *ngFor="let offer of tokenOffers" class="col-xs-12 col-sm-4 col-md-3 col-lg-3 project-card">
+        <md-card *ngIf="offer.offers.length > 0">
           <md-card-header>
             <md-card-title>
               <h4>Token Offer</h4>
             </md-card-title>
           </md-card-header>
           <md-card-content>
-            <h5>For Project:</h5>
-            <h5>Seller:</h5>
-            <h5>Amount:</h5>
-            <h5>Price:</h5>
+            <h5>For Project: {{offer.name}}</h5>
+            <h5>Seller: {{offer.offers[0].owner.username}}</h5>
+            <h5>Amount: {{offer.offers[0].amount}}</h5>
+            <h5>Price: {{offer.offers[0].price}}</h5>
           </md-card-content>
           <md-card-actions>
             <button md-button>Details</button>

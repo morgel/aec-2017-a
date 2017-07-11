@@ -1,0 +1,36 @@
+<h2 md-dialog-title>
+  Offer Token
+</h2>
+<md-dialog-content>
+  <p>
+    <md-select placeholder="Select funded project" [(ngModel)]="selectedProject" name="food" class="full-width"
+               [formControl]="complexForm.controls['fundedProject']">
+      <md-option *ngFor="let project of fundedProjects" [value]="project">
+        {{project.name}}
+      </md-option>
+    </md-select>
+  </p>
+  <p *ngIf="selectedProject">
+    Available tokens: {{selectedProject.tokenHoldingAmount}}
+  </p>
+  <p *ngIf="selectedProject">
+    <md-input-container>
+      <input mdInput [(ngModel)]="tokenAmount" name="tokenAmount" required placeholder="Set token amount" value=""
+             [formControl]="complexForm.controls['tokenAmount']">
+    </md-input-container>
+  </p>
+  <p *ngIf="selectedProject">
+    <md-input-container>
+      <input mdInput [(ngModel)]="price" name="price" required placeholder="Set price" value=""
+             [formControl]="complexForm.controls['price']">
+    </md-input-container>
+  </p>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button md-dialog-close>
+    Cancel
+  </button>
+  <button md-button *ngIf="selectedProject" [md-dialog-close]="true" (click)="offerTokens()" [disabled]="!complexForm.valid">
+    Offer
+  </button>
+</md-dialog-actions>

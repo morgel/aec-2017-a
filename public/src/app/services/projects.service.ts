@@ -84,4 +84,30 @@ export class ProjectsService {
     return this.http.post('http://localhost:3000/projects', data, {headers: headers})
       .map(res => res.json());
   }
+
+  getTokenOffers() {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/projects/token-offers', {headers: headers})
+      .map(res => res.json());
+  }
+
+  offerTokens(data) {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/users/offer-tokens`, data, {headers: headers})
+      .map(res => res.json());
+  }
+  buyTokens(data) {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/users/buy-Tokens`, data, {headers: headers})
+      .map(res => res.json());
+  }
 }
