@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cb70cb6-f1fa-42b1-acac-443311c382da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/app/src/models/contract.js" afterPath="$PROJECT_DIR$/backend/app/src/models/contract.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/app/src/routes/users.js" afterPath="$PROJECT_DIR$/backend/app/src/routes/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/app.module.ts" afterPath="$PROJECT_DIR$/public/src/app/app.module.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/dashboard/dashboard.component.html" afterPath="$PROJECT_DIR$/public/src/app/dashboard/dashboard.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/investments/investmentDialog.html" afterPath="$PROJECT_DIR$/public/src/app/investments/investmentDialog.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html" afterPath="$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.html" afterPath="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts" afterPath="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/services/projects.service.ts" afterPath="$PROJECT_DIR$/public/src/app/services/projects.service.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,11 +24,11 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/app/src/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="187" column="95" lean-forward="false" selection-start-line="187" selection-start-column="78" selection-end-line="187" selection-end-column="95" />
+            <state relative-caret-position="301">
+              <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
               <folding>
-                <marker date="1499815802000" expanded="true" signature="374:757" ph="{...}" />
-                <marker date="1499815802000" expanded="true" signature="563:753" ph="{...}" />
+                <marker date="1499880391000" expanded="true" signature="374:757" ph="{...}" />
+                <marker date="1499880391000" expanded="true" signature="563:753" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -49,10 +44,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projects.service.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="projects.service.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/app/services/projects.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
+            <state relative-caret-position="1376">
               <caret line="92" column="24" lean-forward="false" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -64,18 +59,18 @@
       <file leaf-file-name="marketplace.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="58" />
+            <state relative-caret-position="360">
+              <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contract.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="contract.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/app/src/models/contract.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="55" column="60" lean-forward="false" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+            <state relative-caret-position="349">
+              <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -84,8 +79,8 @@
       <file leaf-file-name="marketplace.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -97,7 +92,7 @@
         <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="159" lean-forward="false" selection-start-line="5" selection-start-column="159" selection-end-line="5" selection-end-column="159" />
+              <caret line="5" column="163" lean-forward="false" selection-start-line="5" selection-start-column="163" selection-end-line="5" selection-end-column="163" />
               <folding />
             </state>
           </provider>
@@ -113,23 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/src/app/dashboard/dashboard.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="55" column="10" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="55" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#56#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="projects.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/app/src/routes/projects.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="131" column="12" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="26" />
+            <state relative-caret-position="285">
+              <caret line="39" column="51" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="51" />
               <folding>
                 <marker date="1499781930000" expanded="true" signature="7765:7800" ph="{...}" />
               </folding>
@@ -157,9 +140,10 @@
       <find>offerAmount</find>
       <find>getbybac</find>
       <find>offerMyTokens</find>
-      <find>contract</find>
-      <find>invest</find>
+      <find>buytoke</find>
       <find>maxtoken</find>
+      <find>invest</find>
+      <find>contract</find>
     </findStrings>
     <replaceStrings>
       <replace>project.fundingStatus</replace>
@@ -181,12 +165,12 @@
         <option value="$PROJECT_DIR$/public/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/public/src/app/projects/projects.component.ts" />
         <option value="$PROJECT_DIR$/public/src/app/marketplace/offerTokenDialog.html" />
-        <option value="$PROJECT_DIR$/backend/app/src/models/contract.js" />
         <option value="$PROJECT_DIR$/public/src/app/services/projects.service.ts" />
         <option value="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.html" />
-        <option value="$PROJECT_DIR$/backend/app/src/routes/users.js" />
-        <option value="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts" />
         <option value="$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html" />
+        <option value="$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts" />
+        <option value="$PROJECT_DIR$/backend/app/src/routes/users.js" />
+        <option value="$PROJECT_DIR$/backend/app/src/models/contract.js" />
       </list>
     </option>
   </component>
@@ -654,12 +638,12 @@
       <workItem from="1499376051039" duration="6649000" />
       <workItem from="1499412718255" duration="253000" />
       <workItem from="1499418051760" duration="382000" />
-      <workItem from="1499782066392" duration="19941000" />
+      <workItem from="1499782066392" duration="23928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37954000" />
+    <option name="totallyTimeSpent" value="41941000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -677,6 +661,7 @@
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="MaxCompute Job" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="MaxCompute Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="MaxCompute Project Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -686,7 +671,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -731,13 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="59" lean-forward="false" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="88" column="18" lean-forward="false" selection-start-line="88" selection-start-column="1" selection-end-line="88" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -929,14 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project.sol">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="99" column="36" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="270" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/app/investments/investments.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-198">
@@ -1031,20 +1000,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/app/src/routes/projects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="131" column="12" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="26" />
-          <folding>
-            <marker date="1499781930000" expanded="true" signature="7765:7800" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/offerTokenDialog.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="32" column="89" lean-forward="false" selection-start-line="32" selection-start-column="89" selection-end-line="32" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="61" column="1" lean-forward="false" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="163" lean-forward="false" selection-start-line="5" selection-start-column="163" selection-end-line="5" selection-end-column="163" />
           <folding />
         </state>
       </provider>
@@ -1057,58 +1032,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/app/src/models/contract.js">
+    <entry file="file://$PROJECT_DIR$/project.sol">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="55" column="60" lean-forward="false" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+        <state relative-caret-position="157">
+          <caret line="148" column="16" lean-forward="false" selection-start-line="148" selection-start-column="9" selection-end-line="148" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/app/src/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="187" column="95" lean-forward="false" selection-start-line="187" selection-start-column="78" selection-end-line="187" selection-end-column="95" />
-          <folding>
-            <marker date="1499815802000" expanded="true" signature="374:757" ph="{...}" />
-            <marker date="1499815802000" expanded="true" signature="563:753" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state relative-caret-position="345">
+          <caret line="36" column="10" lean-forward="false" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/buyTokenDialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="159" lean-forward="false" selection-start-line="5" selection-start-column="159" selection-end-line="5" selection-end-column="159" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/src/app/marketplace/marketplace.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="58" />
+        <state relative-caret-position="360">
+          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/src/app/services/projects.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
+        <state relative-caret-position="1376">
           <caret line="92" column="24" lean-forward="false" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/app/src/routes/projects.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="39" column="51" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="51" />
+          <folding>
+            <marker date="1499781930000" expanded="true" signature="7765:7800" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/app/src/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="184" column="0" lean-forward="false" selection-start-line="184" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding>
+            <marker date="1499880391000" expanded="true" signature="374:757" ph="{...}" />
+            <marker date="1499880391000" expanded="true" signature="563:753" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/app/src/models/contract.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

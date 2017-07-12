@@ -32,8 +32,9 @@ export class MarketplaceComponent implements OnInit {
       if (result) {
         const data = {
           'projectAddress' : offer.address,
-          'tokenOwnerAddress' : offer.offers[0].owner.address
-        }
+          'tokenOwnerAddress' : offer.offers[0].owner.address,
+          'price' : offer.offers[0].price
+        };
         this.projectService.buyTokens(data).subscribe(
           data => {
             console.log(data);

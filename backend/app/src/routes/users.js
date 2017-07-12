@@ -185,7 +185,7 @@ router.post('/offer-tokens', passport.authenticate('jwt', {session: false}), (re
 });
 
 router.post('/buy-Tokens', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-       Contract.buyTokens(req.user.address, req.body.projectAddress, req.body.tokenOwnerAddress, (error) => {
+       Contract.buyTokens(req.user.address, req.body.projectAddress, req.body.tokenOwnerAddress, req.body.price, (error) => {
          if (error) {
              res.json({success: false, msg: 'Unable to buy token: ' + error});
          } else {

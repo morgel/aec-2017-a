@@ -78,10 +78,15 @@ module.exports.getAllOfferedTokens = function (contractAddress) {
 };
 
 
-module.exports.buyTokens = function (userAddress, contractAddress, tokenOwnerAddress, callback) {
-    contract.at(contractAddress).buyTokens.sendTransaction({
+module.exports.buyTokens = function (userAddress, contractAddress, tokenOwnerAddress, price, callback) {
+    contract.at(contractAddress).buyTokens.sendTransaction(tokenOwnerAddress, {
             from: userAddress,
-            tokenOwnerAddress: tokenOwnerAddress
+            value: price,
+            gas: web3.eth.estimateGas({
+                from: userAddress,
+                to: contractAddress,
+                value: price
+            })
         },
         callback
     );
