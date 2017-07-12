@@ -20,20 +20,20 @@
             <p class="project-description-text">
               {{project.description}}
             </p>
-            <h5>Funding Status: {{(project.fundingStatus/project.fundingGoal*100).toFixed(2)}}%</h5>
+            <h5>Funding Status: {{project.fundingStatus}}%</h5>
             <md-progress-bar
               class="funding-status-bar"
               [color]="'accent'"
               [mode]="'determinate'"
-              [value]="(project.fundingStatus/project.fundingGoal*100).toFixed(2)">
+              [value]="project.fundingStatus">
             </md-progress-bar>
             <h5>Remaining Funding Time:</h5>
-            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="project.fundingEnd"></countdown>
+            <countdown *ngIf="!isFunded(project.fundingEnd)" [endDate]="getRealFundingEnd(project.fundingEnd)"></countdown>
             <div *ngIf="isFunded(project.fundingEnd)">Funding period ended</div>
           </md-card-content>
           <md-card-actions>
             <button md-button>Details</button>
-            <button md-raised-button color="primary" class="pull-right" (click)="openDialog(project)">Invest</button>
+            <button md-raised-button color="primary" class="pull-right" (click)="openDialog(project)" [disabled]="isFunded(project.fundingEnd)">Invest</button>
           </md-card-actions>
         </md-card>
       </div>

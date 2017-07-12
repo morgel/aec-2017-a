@@ -2,6 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {MD_DIALOG_DATA} from '@angular/material';
 import {ProjectsService} from '../services/projects.service';
 import {MdDialog} from '@angular/material';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-investments',
@@ -11,6 +12,7 @@ import {MdDialog} from '@angular/material';
 export class InvestmentsComponent implements OnInit {
   allProjects: any;
   allProjectsLoaded = false;
+  currentTime : any;
   currentDate = new Date();
 
   constructor(private projectsService: ProjectsService,
@@ -29,7 +31,8 @@ export class InvestmentsComponent implements OnInit {
   }
 
   isFunded(fundingEnd) {
-    if((new Date(fundingEnd)).getTime() > this.currentDate.getTime()) {
+    console.log(new Date(fundingEnd),this.currentDate);
+    if((new Date(fundingEnd)).getTime() + 30 * 1000 > this.currentDate.getTime()) {
       return false;
     } else {
       return true;
@@ -48,8 +51,14 @@ export class InvestmentsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllProjects();
+    this.currentTime = new Date().getTime();
+    let timer = Observable.timer(0,1000);
+    timer.subscribe(t=> this.currentTime = this.currentTime + 1);
   }
 
+  getRealFundingEnd(fundingEnd) {
+    return new Date(new Date(fundingEnd).getTime() + 30 * 1000);
+  }
 }
 @Component({
   templateUrl: 'investmentDialog.html'

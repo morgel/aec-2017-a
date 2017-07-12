@@ -24,6 +24,7 @@ import {FlashMessagesModule } from 'angular2-flash-messages';
 import { MarketplaceComponent ,BuyTokensDialog, OfferTokensDialog} from './marketplace/marketplace.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { CountdownComponent } from './shared/countdown/countdown.component';
+import { OwnTokenPipe } from './shared/own-token/own-token.pipe';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { CountdownComponent } from './shared/countdown/countdown.component';
     ProjectDetailComponent,
     CountdownComponent,
     BuyTokensDialog,
-    OfferTokensDialog
+    OfferTokensDialog,
+    OwnTokenPipe
   ],
   imports: [
     BrowserModule,

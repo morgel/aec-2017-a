@@ -126,6 +126,7 @@ router.delete('/:project', passport.authenticate('jwt', {session: false}), (req,
     });
 });
 
+
 /**
  * Get all token offer for all projects listed in the DB.
  */

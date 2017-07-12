@@ -3,7 +3,7 @@
 </h2>
 <md-dialog-content>
   <p>
-    <md-select placeholder="Select funded project" [(ngModel)]="selectedProject" name="food" class="full-width"
+    <md-select placeholder="Select project" [(ngModel)]="selectedProject" name="food" class="full-width"
                [formControl]="complexForm.controls['fundedProject']">
       <md-option *ngFor="let project of fundedProjects" [value]="project">
         {{project.name}}
@@ -14,13 +14,13 @@
     Available tokens: {{selectedProject.tokenHoldingAmount}}
   </p>
   <p *ngIf="selectedProject">
-    <md-input-container>
+    <md-input-container class="full-width">
       <input mdInput [(ngModel)]="tokenAmount" name="tokenAmount" required placeholder="Set token amount" value=""
              [formControl]="complexForm.controls['tokenAmount']">
     </md-input-container>
   </p>
   <p *ngIf="selectedProject">
-    <md-input-container>
+    <md-input-container class="full-width">
       <input mdInput [(ngModel)]="price" name="price" required placeholder="Set price" value=""
              [formControl]="complexForm.controls['price']">
     </md-input-container>

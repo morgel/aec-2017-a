@@ -19,8 +19,11 @@ export class MarketplaceComponent implements OnInit {
   ngOnInit() {
     this.projectService.getTokenOffers().subscribe(
       data => {
-        console.log(data.projects);
-        this.tokenOffers = data.projects;
+        data.projects.filter((results) =>{
+          console.log(data.projects);
+          this.tokenOffers = data.projects;
+        });
+
 
       }
     );
@@ -38,13 +41,27 @@ export class MarketplaceComponent implements OnInit {
         this.projectService.buyTokens(data).subscribe(
           data => {
             console.log(data);
+            this.projectService.getTokenOffers().subscribe(
+              data => {
+                console.log(data);
+                this.tokenOffers = data.projects;
+              }
+            )
           })
       }
     });
   }
 
   openOfferTokensDialog() {
-    this.dialog.open(OfferTokensDialog);
+    const offerTokensDialog = this.dialog.open(OfferTokensDialog);
+    offerTokensDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService.getTokenOffers().subscribe(
+          data => {
+            this.tokenOffers = data.projects;
+          })
+      }
+    });
   }
 }
 
