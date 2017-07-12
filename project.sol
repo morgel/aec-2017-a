@@ -38,13 +38,13 @@ contract Project{
   mapping(address => uint) offered_price;
   //uint nominal_token_value = 1;
   uint emitted_tokens;
-  
+
   // this counter is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp
   // otherwise now is not updated
   uint eventCounterForTesting = 0;
 
   function Project(uint goal, uint _percentOfAllTokensDistributedToBackers) public{
-    // not yet added all parameters in constructor to initialize additional attributes (category,..., funding_end)
+    // not all parameters in constructor to initialize additional attributes (category,..., funding_end)
     owner = msg.sender;
     funding_goal = goal;
     percentOfAllTokensDistributedToBackers = _percentOfAllTokensDistributedToBackers;
@@ -59,7 +59,7 @@ contract Project{
 
   function() payable public{
     assert(isActive());
-    bool exists =false;
+    bool exists = false;
         for(uint i = 0; i < numberOfBackers; i++){
             if (indicesAddresses[i]== msg.sender)
             {
@@ -70,7 +70,7 @@ contract Project{
             indicesAddresses[numberOfBackers] = msg.sender;
             numberOfBackers += 1;
         }
-    
+
       tokens_of_backers[msg.sender] += msg.value;
       emitted_tokens += msg.value;
       backers[msg.sender] += msg.value;
@@ -84,33 +84,33 @@ function getEmittedTokens() constant returns(uint){
 function getMyTokens(address backer) constant returns(uint){
       return tokens_of_backers[backer];
   }
-  
+
 function getAllTokenOwners() constant returns(address[], uint[]) {
     uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_of_backers[indicesAddresses[i]]>0){
             len += 1;
-        }      
+        }
     }
     address[]memory addresses = new address[](len);
     uint[]memory tokens = new uint[](len);
     uint counter = 0;
     for(i = 0; i < numberOfBackers; i++){
-        if (tokens_of_backers[indicesAddresses[i]]>0){
+        if (tokens_of_backers[indicesAddresses[i]] > 0){
             addresses[counter] = indicesAddresses[i];
             tokens[counter] = tokens_of_backers[indicesAddresses[i]];
             counter += 1;
         }
     }
-    return (addresses,tokens);
+    return (addresses, tokens);
 }
 
-function getAllOfferedTokens() constant returns(address[], uint[],uint[]) {
+function getAllOfferedTokens() constant returns(address[], uint[], uint[]) {
     uint len = 0;
     for(uint i = 0; i < numberOfBackers; i++){
         if (tokens_offered[indicesAddresses[i]]>0){
             len += 1;
-        }      
+        }
     }
     address[]memory addresses  = new address[](len);
     uint[]memory tokens  = new uint[](len);
@@ -122,23 +122,20 @@ function getAllOfferedTokens() constant returns(address[], uint[],uint[]) {
             tokens[counter] = tokens_offered[indicesAddresses[i]];
             price[counter] = offered_price[indicesAddresses[i]];
             counter += 1;
-        }   
-    }
-    
-    return (addresses,tokens,price);
-    
-}    
-    
-function offerMyTokens(uint tokenprice,uint tokennumber) returns(uint, uint){
-    assert(isFunded());
-        if(tokennumber > tokens_of_backers[msg.sender]-tokens_offered[msg.sender])
-        {throw;}
-        else{
-        tokens_offered[msg.sender]=tokennumber;
-        offered_price[msg.sender]=tokenprice;
         }
+    }
+
+    return (addresses, tokens, price);
+
+}
+
+function offerMyTokens(uint tokenprice, uint tokennumber) returns(uint, uint){
+    assert(isFunded());
+        assert(tokennumber <= tokens_of_backers[msg.sender]);
+        tokens_offered[msg.sender] = tokennumber;
+        offered_price[msg.sender] = tokenprice;
         return (tokens_offered[msg.sender], offered_price[msg.sender]);
-    
+
 }
 
 function getTokensOffered(address backer) constant returns(uint, uint){
@@ -148,8 +145,8 @@ function getTokensOffered(address backer) constant returns(uint, uint){
 
 function buyTokens(address tokenowner) payable public{
     assert(isFunded());
-        assert(msg.value>=offered_price[tokenowner]);
-        bool exists =false;
+        assert(msg.value >= offered_price[tokenowner]);
+        bool exists = false;
         for(uint i = 0; i < numberOfBackers; i++){
             if (indicesAddresses[i]== msg.sender)
             {
@@ -161,22 +158,22 @@ function buyTokens(address tokenowner) payable public{
             numberOfBackers += 1;
         }
         tokenowner.transfer(offered_price[tokenowner]);
-        tokens_of_backers[tokenowner]-=tokens_offered[tokenowner];
-        tokens_of_backers[msg.sender]+=tokens_offered[tokenowner];
-        tokens_offered[tokenowner]=0;
-        offered_price[tokenowner]=0;
+        tokens_of_backers[tokenowner] -= tokens_offered[tokenowner];
+        tokens_of_backers[msg.sender] += tokens_offered[tokenowner];
+        tokens_offered[tokenowner] = 0;
+        offered_price[tokenowner] = 0;
 }
 
   function myTokenShare(address backer) constant returns(uint){
       uint tokenShareInPercent = 0;
-      assert(emitted_tokens>0);
+      assert(emitted_tokens > 0);
       tokenShareInPercent = tokens_of_backers[backer] * percentOfAllTokensDistributedToBackers / emitted_tokens ;
       return tokenShareInPercent;
-  }  
+  }
 
   function isFunded() constant public returns(bool){
   if(!isActive()){
-    if(paid_in>=funding_goal){
+    if(paid_in >= funding_goal){
       successfullyFunded = true;
       return successfullyFunded;
     }
@@ -188,9 +185,8 @@ function buyTokens(address tokenowner) payable public{
     return false;
   }
   }
-  
+
   function isActive() constant public returns(bool){
-      return true;
       if(now > fundingEnd){
           return false;
       }
@@ -198,17 +194,16 @@ function buyTokens(address tokenowner) payable public{
   }
 
   function getFundingStatus() constant public returns(uint){
-      assert(funding_goal>0);
+      assert(funding_goal > 0);
       return 100*paid_in/funding_goal;
   }
 
   function withdrawFunds(uint amountToWithdraw) returns(bool){
       if (msg.sender == owner) {
-          var alreadyFunded = isFunded();
-          if(alreadyFunded){
+          if(isFunded()){
               if(amountToWithdraw <= (this.balance)){
                   owner.transfer(amountToWithdraw);
-                  totalWithdrawnAmount+=amountToWithdraw;
+                  totalWithdrawnAmount += amountToWithdraw;
                   return true;
               }
           }
@@ -222,9 +217,9 @@ function buyTokens(address tokenowner) payable public{
         for(uint i = 0; i < numberOfBackers; i++){
             address backer = indicesAddresses[i];
             backer.transfer(tokens_of_backers[backer]);
-            tokens_of_backers[backer]=0;
+            tokens_of_backers[backer] = 0;
         }
-        
+
     selfdestruct(owner); //should return 0 value
     }
   }
@@ -261,7 +256,7 @@ function buyTokens(address tokenowner) payable public{
   function getFundingEnd() constant public returns(uint){
     return fundingEnd;
   }
-  
+
   // this function is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp
   // otherwise now is not updated
   function incrementEventCounter() {
