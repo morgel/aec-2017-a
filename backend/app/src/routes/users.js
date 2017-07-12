@@ -189,8 +189,38 @@ router.post('/buy-Tokens', passport.authenticate('jwt', {session: false}), (req,
          if (error) {
              res.json({success: false, msg: 'Unable to buy token: ' + error});
          } else {
-             res.status(201);
-             res.json({success: true, msg: 'Token successfully bought'});
+
+          Project.getByProjectByAddress(req.body.projectAddress,  (err, projects) => {
+              if (err) {
+                  res.json({success: false, msg: 'Unable to fetch projects: ' + err});
+              } else {
+
+
+                //backers: [new mongoose.Schema({user: String, amount: Number})]
+                projects.update({'backers.name': req.body.tokenOwnerAddress}, {'$set': {'backers.$.name': req.user.address}}, function(err){
+                  if(err){
+                     console.log('Error while updating database:' + err);
+                   }
+                  else {
+                    console.log('Database successfully updated.')
+                  }
+                });
+
+                //projects.save(funcion(err){
+                //  if(err){
+                //    console.log('Error while updating database:' + err);
+                //  }
+                //  else {
+                //    console.log('Database successfully updated.')
+                //  }
+                //});
+
+                }
+          });
+
+
+          res.status(201);
+          res.json({success: true, msg: 'Token successfully bought'});
          }
      });
    });

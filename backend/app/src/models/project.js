@@ -62,6 +62,10 @@ module.exports.getActive = function (callback) {
     Model.find({isActive: true}, callback);
 }
 
+module.exports.getByProjectByAddress = function (addressparam, callback) {
+    Model.find({address: addressparam}, callback);
+}
+
 module.exports.getFunded = function (callback) {
     Model.find({isFunded: true}, callback);
 }
