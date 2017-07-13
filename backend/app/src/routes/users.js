@@ -6,6 +6,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Project = require('../models/project');
 const Contract = require('../models/contract');
+const sync = require('../config/sync');
 
 // Register
 router.post('/', (req, res, next) => {
@@ -82,7 +83,7 @@ router.get('/profile/projects', passport.authenticate('jwt', {session: false}), 
  * Get backed projects.
  */
 router.get('/profile/investments', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Project.getByBacker(req.user.id, (err, projects) => {
+    Project.getByBacker(req.user.address, (err, projects) => {
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
         } else {
@@ -96,7 +97,7 @@ router.get('/profile/investments', passport.authenticate('jwt', {session: false}
  * furthermore if the user has already an open offer for the respective project.
  */
 router.get('/profile/funded-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    Project.getByBacker(req.user.id, (err, projects) => {
+    Project.getByBacker(req.user.address, (err, projects) => {
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
         } else {
@@ -142,7 +143,7 @@ router.get('/profile/funded-projects', passport.authenticate('jwt', {session: fa
  */
 router.get('/profile/invested-projects', passport.authenticate('jwt', {session: false}), (req, res, next) => {
 
-    Project.getByBacker(req.user.id, (err, projects) => {
+    Project.getByBacker(req.user.address, (err, projects) => {
 
         if (err) {
             res.json({success: false, msg: 'Unable to fetch projects: ' + err});
@@ -185,49 +186,30 @@ router.post('/offer-tokens', passport.authenticate('jwt', {session: false}), (re
 });
 
 router.post('/buy-Tokens', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-       Contract.buyTokens(req.user.address, req.body.projectAddress, req.body.tokenOwnerAddress, req.body.price, (error) => {
-         if (error) {
-             res.json({success: false, msg: 'Unable to buy token: ' + error});
-         } else {
+    Contract.buyTokens(req.user.address, req.body.projectAddress, req.body.tokenOwnerAddress, req.body.price, (error) => {
+        if (error) {
+            res.status(500);
+            res.json({success: false, msg: 'Unable to buy token: ' + error});
+        } else {
 
-          Project.getByProjectByAddress(req.body.projectAddress,  (err, projects) => {
-              if (err) {
-                  res.json({success: false, msg: 'Unable to fetch projects: ' + err});
-              } else {
-
-
-                //backers: [new mongoose.Schema({user: String, amount: Number})]
-                projects.update({'backers.name': req.body.tokenOwnerAddress}, {'$set': {'backers.$.name': req.user.address}}, function(err){
-                  if(err){
-                     console.log('Error while updating database:' + err);
-                   }
-                  else {
-                    console.log('Database successfully updated.')
-                  }
-                });
-
-                //projects.save(funcion(err){
-                //  if(err){
-                //    console.log('Error while updating database:' + err);
-                //  }
-                //  else {
-                //    console.log('Database successfully updated.')
-                //  }
-                //});
-
+            Project.getByProjectByAddress(req.body.projectAddress, (err, project) => {
+                if (err) {
+                    res.status(500);
+                    res.json({success: false, msg: 'Unable to fetch project: ' + err});
+                } else {
+                    // set a timeout to wait for mining
+                    var syncFunction = function(){
+                        sync.sync(project).then(
+                            result => res.json({success: true, msg: 'Token successfully bought'}),
+                            error => res.json({success: true, msg: 'Token successfully bought, sync failed'})
+                        );
+                    }
+                    setTimeout(syncFunction, 1000);
                 }
-          });
-
-
-          res.status(201);
-          res.json({success: true, msg: 'Token successfully bought'});
-         }
-     });
-   });
-
-
-
-
+            });
+        }
+    });
+});
 
 
 module.exports = router;

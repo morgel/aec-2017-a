@@ -48,6 +48,10 @@ module.exports.isActive = function (contractAddress) {
     return contract.at(contractAddress).isActive();
 };
 
+module.exports.getAllTokenOwners = function (contractAddress) {
+    return contract.at(contractAddress).getAllTokenOwners();
+};
+
 module.exports.getFundingStatus = function (contractAddress) {
     return contract.at(contractAddress).getFundingStatus();
 };

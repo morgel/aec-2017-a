@@ -56,7 +56,7 @@ var startup = function () {
 
     // sync with blockchain every 30s
     var rule = new schedule.RecurrenceRule();
-    rule.second = 30;
+    rule.second = 10;
     schedule.scheduleJob(rule, sync.syncAll);
 
 // Index Route

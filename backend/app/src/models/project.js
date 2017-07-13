@@ -43,7 +43,7 @@ const ProjectSchema = mongoose.Schema({
         required: false,
     },
     backers: [new mongoose.Schema({
-        user: String,
+        address: String,
         amount: Number
     })]
 });
@@ -74,16 +74,24 @@ module.exports.getByCreator = function (creatorId, callback) {
     Model.find({creator: creatorId}, callback);
 }
 
-module.exports.getByBacker = function (backerId, callback) {
-    Model.find({'backers.user': backerId}, callback);
+module.exports.getByBacker = function (backerAddress, callback) {
+    Model.find({'backers.address': backerAddress}, callback);
 }
 
 module.exports.invest = function (project, user, amount, callback) {
 
     project.backers.push({
-        user: user.id,
+        address: user.address,
         amount: amount
     });
+
+    // calculate funding status
+    var funding = 0;
+    project.backers.forEach(backer => {
+        funding = funding + backer.amount;
+    });
+    console.log(funding);
+    project.fundingStatus = Math.round(funding / project.fundingGoal * 100);
 
     project.save(callback);
 
