@@ -426,7 +426,7 @@ Note that this number is the number of seconds since 01/01/1970
 
 Function: incrementEventCounter()
 
-Use: this function is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp, otherwise now is not updated
+Use: this function is for the purpose of triggering an event in the blockchain for testrpc to update the timestamp, otherwise now is not updated
 
 Call: incrementEventCounter()
 
