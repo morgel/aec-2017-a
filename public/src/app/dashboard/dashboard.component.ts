@@ -26,13 +26,16 @@ export class DashboardComponent implements OnInit {
   }
 
   isFunded(fundingEnd) {
-    const fundingEndTime = new Date(new Date(fundingEnd).getTime() + this.period);
-
-    if((new Date(fundingEnd)).getTime() > fundingEndTime.getTime()) {
+    console.log(new Date(fundingEnd),this.currentDate);
+    if((new Date(fundingEnd)).getTime() + 30 * 1000 > this.currentDate.getTime()) {
       return false;
     } else {
       return true;
     }
+  }
+
+  getRealFundingEnd(fundingEnd) {
+    return new Date(new Date(fundingEnd).getTime() + 30 * 1000);
   }
 
   getCountdown(date) {

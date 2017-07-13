@@ -39,6 +39,10 @@ export class InvestmentsComponent implements OnInit {
     }
   }
 
+  getRealFundingEnd(fundingEnd) {
+    return new Date(new Date(fundingEnd).getTime() + 30 * 1000);
+  }
+
   openDialog(project) {
     console.log(project);
     const investDialog = this.dialog.open(InvestmentsDialog, {'data': project});
@@ -56,9 +60,7 @@ export class InvestmentsComponent implements OnInit {
     timer.subscribe(t=> this.currentTime = this.currentTime + 1);
   }
 
-  getRealFundingEnd(fundingEnd) {
-    return new Date(new Date(fundingEnd).getTime() + 30 * 1000);
-  }
+
 }
 @Component({
   templateUrl: 'investmentDialog.html'
