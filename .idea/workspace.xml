@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1cb70cb6-f1fa-42b1-acac-443311c382da" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/app/src/models/contract.js" afterPath="$PROJECT_DIR$/backend/app/src/models/contract.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/dashboard/dashboard.component.ts" afterPath="$PROJECT_DIR$/public/src/app/dashboard/dashboard.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/src/app/investments/investments.component.ts" afterPath="$PROJECT_DIR$/public/src/app/investments/investments.component.ts" />
-    </list>
+    <list default="true" id="1cb70cb6-f1fa-42b1-acac-443311c382da" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -741,12 +737,12 @@
       <workItem from="1499376051039" duration="6649000" />
       <workItem from="1499412718255" duration="253000" />
       <workItem from="1499418051760" duration="382000" />
-      <workItem from="1499782066392" duration="36619000" />
+      <workItem from="1499782066392" duration="37101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54632000" />
+    <option name="totallyTimeSpent" value="55114000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
