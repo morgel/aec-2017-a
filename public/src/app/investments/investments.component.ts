@@ -31,8 +31,7 @@ export class InvestmentsComponent implements OnInit {
   }
 
   isFunded(fundingEnd) {
-    console.log(new Date(fundingEnd),this.currentDate);
-    if((new Date(fundingEnd)).getTime() + 30 * 1000 > this.currentDate.getTime()) {
+    if((new Date(fundingEnd)).getTime() + 30 * 24 * 60 * 60 * 1000 > this.currentDate.getTime()) {
       return false;
     } else {
       return true;
@@ -40,7 +39,7 @@ export class InvestmentsComponent implements OnInit {
   }
 
   getRealFundingEnd(fundingEnd) {
-    return new Date(new Date(fundingEnd).getTime() + 30 * 1000);
+    return new Date(new Date(fundingEnd).getTime() +  30 * 24 * 60 * 60 * 1000);
   }
 
   openDialog(project) {
