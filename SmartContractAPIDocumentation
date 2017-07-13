@@ -1,0 +1,437 @@
+Smart Contract API Documentation
+
+Contract Project:
+
+Function: Example
+
+Use: the intended use of this function
+
+Call: the way to call this function
+
+Parameters: the parameters to be handed to this function
+
+Returns: the values this function returns
+
+
+Function: Project constructor
+
+Call: Project(goal, _percentOfAllTokensDistributedToBackers)
+
+Parameters :
+uint goal: the funding goal for this project 
+e.g. 5000
+The funding goal is the minimal amount which the project has to collect during the funding period to be successfully funded.
+
+uint _percentOfAllTokensDistributedToBackers: the percentage of all tokens in the project which is the creator is willing to distribute to the backers
+e.g. 40, means that the project owner keeps 60% of the project tokens and the backers together receive 40% (in proportion to their paid in amounts)
+
+Default Values:
+address owner: the message sender will be the owner of this project
+
+uint creationDate: the creation Date of this project will be set to “now” (block timestamp)
+
+uint fundingEnd: the funding end will be set to 30 days after the creation Date, so the funding period is 30 days by default
+Note that the time is in seconds, so 30 days equal 30days*24hours*60minutes*60seconds = 2592000 seconds
+
+bool successfullyFunded: will be set to false
+
+uint totalWithdrawnAmount: will be set to 0
+Note that the owner can only withdraw funds after the project has been successfully funded
+
+Returns:
+no return value
+
+
+Function: payable
+
+Use: this function is used by backers to fund the project
+it is only usable during the funding period, otherwise this function throws (no more investments are allowed)
+
+Call: this is the fallback function (when someone sends ether to this contract)
+
+Parameters:
+none
+Note that the amount the backer wants to invest in the project is determined by the message value she sets
+
+Returns:
+no return value
+
+
+Function: getEmittedTokens()
+
+Use: get total number of tokens distributed to token holders
+
+Call: getEmittedTokens()
+
+Parameters:
+none
+
+Returns:
+type: uint
+number of distributed tokens
+
+
+Function: getMyTokens(address backer) → changed for web3js
+
+Use: get the number of tokens the tokenholder holds in the project
+
+Call: getMyTokens(backer)
+
+Parameters:
+address backer: the address of the tokenholder
+Note: this is necessary because of web3js restrictions
+
+Returns:
+type: uint
+the number of tokens the message sender holds in this project
+
+
+Function: getAllTokenOwners()
+
+Use: get every holder of tokens in this project and the amount of tokens they hold
+
+Call: getAllTokenOwners()
+
+Parameters:
+none
+
+Returns:
+type: address[]
+List with all addresses of the holders of tokens in this project
+
+type: uint[]
+List with all the amounts of tokens the holders have
+
+
+Function: getAllOfferedTokens()
+
+Use: get all holders of tokens in this project and the amount of tokens they are currently offering for sale plus the price they want to have for the offered amount of tokens
+
+Call: getAllOfferedTokens()
+
+Parameters:
+none
+
+Returns:
+type: address[]
+List with all addresses of the holders of tokens in this project
+
+type: uint[]
+List with all the amounts of tokens the holders are offering for sale
+
+type: uint[]
+List with all the prices the holders of tokens want to have for their offered amounts of tokens
+
+
+Function: offerMyTokens(uint tokenprice, uint tokennumber)
+
+Use: token holder can offer (a share of) his tokens for others to buy at a specified price
+
+Call: offerMyTokens(tokenprice, tokennumber)
+
+Parameters:
+uint tokenprice: the price the offerer wants to have for all his offered tokens
+e.g. 500, means a buyer has to pay 500 and will receive the offered number of tokens
+
+uint tokennumber: the amount of tokens the token holder is willing to sell
+e.g. 200, means she offers 200 tokens for sale and wants to have the specified price for them
+
+Example: 
+offermyTokens(500, 200)
+this token holder offers 200 tokens at a total price of 500
+a buyer can use the function buyTokens(...) to buy these and the seller with receive 500 in monetary value and have 200 tokens less in her balance
+
+Returns:
+type: uint
+the current amount this token holder is offering (after the function has run)
+
+type: uint
+the current price this token holder wants to have for his offered tokens (after the function has run)
+
+
+Function: getTokensOffered(address backer) → changed for web3js
+
+Use: get the currently offered amount of tokens by this address and the associated price
+
+Call: getTokensOffered(backer)
+
+Parameters:
+address backer: the address of the tokenholder
+Note: this is necessary because of web3js restrictions
+
+Returns:
+type: uint
+number of offered tokens from this seller
+
+type: uint
+price this seller has specified for the offerer tokens
+
+
+Function: buyTokens(address tokenowner)
+
+Use: agree to an offer by a seller and buy the offered tokens by this seller at the specified price
+
+Call: buyTokens(tokenowner)
+
+Parameters:
+address tokenowner: the address of the seller whose offer this buyer wants to buy
+
+Note that the message value should be the same as the specified price for this offer. There are no refunds if the message value is higher. If it is lower than the price the transaction will throw.
+
+Returns:
+no return value
+
+
+Function: myTokenShare(address backer) → changed for web3js
+
+Use: get the share of token this tokenholder holds in the project
+
+Call: myTokenShare(backer)
+
+Parameters:
+address backer: the address of the tokenholder
+Note: this is necessary because of web3js restrictions
+
+Returns:
+type: uint
+share of tokens this tokenholder has in the project
+Note that there are no floating point data types in solidity (yet) so this is a rounded number
+
+
+Function: isFunded()
+
+Use: check if this project was successfully funded
+Note that successfully funded means that this project is not active anymore (i.e. the funding period has passed) and the paid in amount is higher than the funding goal
+
+Call: isFunded()
+
+Parameters:
+none
+
+Returns:
+type: bool
+true: this project was successfully funded → definitely keep this project in the database
+false: this project was not successfully funded (yet)
+Note: if this function returns false, call the function isActive() to see if the funding period has passed yet (if isActive() returns true, this project has to be kept alive; if isActive() returns false, this project can be killed as it was not successfully funded)
+
+
+Function: isActive()
+
+Use: check if the funding period for this project has been passed
+
+Call: isActive()
+
+Parameters:
+none
+
+Returns:
+type: bool
+true: this project’s funding period is still running (and investments can be made)
+false: this project’s funding period is over (no further investments can be made)
+
+
+Function: getFundingStatus()
+
+Use: get the fraction of paid in amount relative to the funding goal of this project (in percent)
+
+Call: getFundingStatus()
+
+Parameters:
+none
+
+Returns:
+type: uint
+the fraction of paid in amount over funding goal multiplied with 100
+e.g. 100, means that paid in amount currently equals funding goal
+e.g. 50, means that the paid in amount is half of the funding goal
+Note that there are no floating point data types in solidity (yet) so this is a rounded number
+
+
+Function: withdrawFunds(uint amountToWithdraw)
+
+Use: the owner of the project can withdraw funds after the project has been successfully funded
+
+Call: withdrawFunds(amountToWithdraw)
+
+Parameters:
+uint amountToWithdraw: the amount the owner wishes to withdraw
+
+Returns:
+type: bool
+true: the amount was withdrawn and transferred to the owner
+false: the amount could not be withdrawn
+
+
+Function: kill()
+
+Use: destroy this project, i.e. this contract is no longer active on the blockchain
+
+Call: kill()
+
+Parameters:
+none
+
+Returns:
+0 if the kill was successful
+Note that only the owner can kill this project, thus this function has to be called from the owner’s address to be successful
+
+Side effect:
+this kill function automatically redistributes the funds to all token holders
+
+
+Function: getNumberOfBackers()
+
+Use: get the number of token holders who ever had a share in this project
+
+Call: getNumberOfBackers()
+
+Parameters:
+none
+
+Returns:
+type: uint
+number of all tokenholders who ever had a share in the project
+
+
+Function: getMyPaidInAmount(address backer) → changed for web3js
+
+Use: get this backer’s paid in amount 
+Note that this is meant for the original backers (who invested during the funding period), all others (who bought shares after the funding period only) can use getmyTokens().
+
+Call: getMyPaidInAmount(backer)
+
+Parameters:
+address backer: the address of the tokenholder
+Note: this is necessary because of web3js restrictions
+
+Returns:
+type: uint
+the amount the backer has invested during the funding period
+
+
+Function: getFundingGoal()
+
+Use: get this project’s funding goal
+
+Call: getFundingGoal()
+
+Parameters:
+none
+
+Returns:
+type: uint
+the funding goal for this project
+
+
+Function: getPaidIn()
+
+Use: get this project’s total paid in amount (paid in during the funding period)
+
+Call: getPaidIn()
+
+Parameters:
+none
+
+Returns:
+type: uint
+total amount paid into this project
+
+
+Function: getTotalWithdrawnAmount()
+
+Use: get this project’s total withdrawn amount by the owner
+
+Call: getTotalWithdrawnAmount()
+
+Parameters:
+none
+
+Returns:
+type: uint
+total amount withdrawn by the owner of this project
+
+
+Function: getPercentOfAllTokensDistributedToBackers()
+
+Use: get this project’s percentage share of tokens distributed to backers
+
+Call: getPercentOfAllTokensDistributedToBackers()
+
+Parameters:
+none
+
+Returns:
+type: uint
+percentage of tokens distributed to backers
+Note that 100 minus this return value equals the share of tokens hold by the project owner
+
+
+Function: getOwnerAddress()
+
+Use: get this project’s owner address
+
+Call: getOwnerAddress()
+
+Parameters:
+none
+
+Returns:
+type: address
+address of the owner of this project
+
+
+Function: getCurrentBalance()
+
+Use: get this contract’s current balance of money
+
+Call: getCurrentBalance()
+
+Parameters:
+none
+
+Returns:
+type: uint
+amount of money available to this contract
+
+
+Function: getCreationDate()
+
+Use: get this project’s creation date (equals start of funding period)
+
+Call: getCreationDate()
+
+Parameters:
+none
+
+Returns:
+type: uint
+creation date of this project
+Note that this number is the number of seconds since 01/01/1970
+
+
+Function: getFundingEnd()
+
+Use: get this project’s funding end (equals end of funding period)
+
+Call: getFundingEnd()
+
+Parameters:
+none
+
+Returns:
+type: uint
+funding end of this project
+Note that this number is the number of seconds since 01/01/1970
+
+
+Function: incrementEventCounter()
+
+Use: this function is for the purpose of triggering an event in the blockchain for testrtc to update the timestamp, otherwise now is not updated
+
+Call: incrementEventCounter()
+
+Parameters:
+none
+
+Returns:
+no return value
